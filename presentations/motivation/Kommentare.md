@@ -1,0 +1,6 @@
+- 4 phones, small to big (Bene-BA)
+- points
+  - no cross
+  - random points
+  - prediting output shuld be x and y coordinates
+- 16-20 participants, with about 30-40 min pp. 

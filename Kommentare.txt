@@ -1,3 +1,0 @@
-4 phones, small to big 
-no cross, random points, predict x and y of the point with the help of imu
-16-20 participants, with about 30-40 min pp. 

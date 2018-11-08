@@ -1,6 +1,7 @@
 package mci.fapra.fapra_imu;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -11,6 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
+import java.util.Random;
+
+import mci.fapra.fapra_imu.Constants;
+
 public class TouchActivity extends AppCompatActivity {
 
 
@@ -18,12 +23,16 @@ public class TouchActivity extends AppCompatActivity {
 
     private SensorManager sm;
     private SensorWriter sw;
+    private int iteration = -1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         hideSystemUI();
+        Point[] conditions = this.createConditions();
+
 
         sm = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
         sw = new SensorWriter(-1, sm);
@@ -35,6 +44,10 @@ public class TouchActivity extends AppCompatActivity {
     public void end() {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         showSystemUI();
+    }
+
+    public void nextTask(){
+        iteration++;
     }
 
     private void hideSystemUI() {
@@ -64,5 +77,24 @@ public class TouchActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         sw.onStop();
+    }
+
+
+    /**
+     *
+     * @return list holding random points for the creation of the circles
+     */
+    private Point[] createConditions(){
+        Point[] conditions = new Point[Constants.AMOUNT_REPETITIONS];
+
+        int x_offset = 0;
+        int y_offset = 0;
+
+        for (int i = 0; i < Constants.AMOUNT_REPETITIONS; i++) {
+            int x = new Random().nextInt(Constants.SCREEN_WIDTH - Constants.getTargetPixelsForPhone());
+            int y = new Random().nextInt(Constants.getScreenHeight() - y_offset) + y_offset - Constants.getTargetPixelsForPhone();
+            conditions[i] = new Point(x, y);
+        }
+        return conditions;
     }
 }

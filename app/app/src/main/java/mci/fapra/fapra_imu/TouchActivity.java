@@ -11,11 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import java.util.Random;
 
-import mci.fapra.fapra_imu.Constants;
 
 public class TouchActivity extends AppCompatActivity {
 
@@ -26,31 +27,61 @@ public class TouchActivity extends AppCompatActivity {
     private SensorWriter sw;
     private int iteration = 0;
     private Point[] conditions;
+    private int pID;
+    private ImageView circle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_touch);
         hideSystemUI();
-        conditions = this.createConditions();
 
+        pID = getIntent().getIntExtra("PARTICIPANT_ID",-1);
+
+        conditions = this.createConditions();
+        circle = findViewById(R.id.circle);
 
         sm = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
-        sw = new SensorWriter(-1, sm);
-
+        sw = new SensorWriter(pID, sm);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        startTask();
     }
 
+
+    private void startTask(){
+        if (iteration<Constants.AMOUNT_REPETITIONS-1) {
+            final Point p = conditions[iteration];
+            circle.setX(p.x);
+            circle.setY(p.y);
+            circle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(), "Runde: " + iteration + "/" + Constants.AMOUNT_REPETITIONS, Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "" + p.x + "|" + p.y);
+                    nextTask();
+                }
+            });
+        } else {
+            Toast.makeText(getApplicationContext(), "Done! ", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void nextTask(){
+        iteration++;
+        startTask();
+    }
+
+    public void finishTask(){
+        //TODO implement
+    }
     // TODO new function name
     public void end() {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         showSystemUI();
     }
 
-    public void nextTask(){
-        iteration++;
-    }
+
 
     private void hideSystemUI() {
         View decorView = getWindow().getDecorView();
@@ -81,16 +112,8 @@ public class TouchActivity extends AppCompatActivity {
         sw.onStop();
     }
 
-    private void moveView(View v, int x, int y){
-        RelativeLayout.LayoutParams params;
-        params = (RelativeLayout.LayoutParams) v.getLayoutParams();
-        params.leftMargin = x;
-        params.topMargin = y;
-        v.setLayoutParams(params);
-    }
-
     /**
-     *
+     * Create a list with random
      * @return list holding random points for the creation of the circles
      */
     private Point[] createConditions(){

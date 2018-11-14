@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                 if (s_pID.length() != 0) {
                     int pID = Integer.parseInt(s_pID);
                     if (pID > 0) {
-                        launchActivity();
+                        launchActivity(pID);
                     }
                 }
             }
@@ -44,8 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void launchActivity() {
+    private void launchActivity(int pID) {
         Intent intent = new Intent(this, TouchActivity.class);
+        intent.putExtra("PARTICIPANT_ID", pID);
         startActivity(intent);
     }
 }

@@ -2,9 +2,6 @@ package mci.fapra.fapra_imu;
 
 import android.content.Context;
 import android.graphics.Point;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +26,8 @@ public class TouchActivity extends AppCompatActivity {
     private Point[] conditions;
     private int pID;
     private ImageView circle;
+    private int circleSize = Constants.getTargetPixelsForPhone();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +35,12 @@ public class TouchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_touch);
         hideSystemUI();
 
-        pID = getIntent().getIntExtra("PARTICIPANT_ID",-1);
+        pID = getIntent().getIntExtra("PARTICIPANT_ID", -1);
 
         conditions = this.createConditions();
         circle = findViewById(R.id.circle);
+        circle.setLayoutParams(new RelativeLayout.LayoutParams(circleSize, circleSize));
+
 
         sm = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
         sw = new SensorWriter(pID, sm);
@@ -49,8 +50,8 @@ public class TouchActivity extends AppCompatActivity {
     }
 
 
-    private void startTask(){
-        if (iteration<Constants.AMOUNT_REPETITIONS-1) {
+    private void startTask() {
+        if (iteration < Constants.AMOUNT_REPETITIONS - 1) {
             final Point p = conditions[iteration];
             circle.setX(p.x);
             circle.setY(p.y);
@@ -67,20 +68,20 @@ public class TouchActivity extends AppCompatActivity {
         }
     }
 
-    public void nextTask(){
+    public void nextTask() {
         iteration++;
         startTask();
     }
 
-    public void finishTask(){
+    public void finishTask() {
         //TODO implement
     }
+
     // TODO new function name
     public void end() {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         showSystemUI();
     }
-
 
 
     private void hideSystemUI() {
@@ -114,17 +115,16 @@ public class TouchActivity extends AppCompatActivity {
 
     /**
      * Create a list with random
+     *
      * @return list holding random points for the creation of the circles
      */
-    private Point[] createConditions(){
+    private Point[] createConditions() {
         Point[] conditions = new Point[Constants.AMOUNT_REPETITIONS];
-
-        int x_offset = 0;
-        int y_offset = 0;
+        Random r = new Random();
 
         for (int i = 0; i < Constants.AMOUNT_REPETITIONS; i++) {
-            int x = new Random().nextInt(Constants.SCREEN_WIDTH - Constants.getTargetPixelsForPhone());
-            int y = new Random().nextInt(Constants.getScreenHeight() - y_offset) + y_offset - Constants.getTargetPixelsForPhone();
+            int x = r.nextInt(Constants.getScreenWidth() - circleSize);
+            int y = r.nextInt(Constants.getScreenHeight() - circleSize);
             conditions[i] = new Point(x, y);
         }
         return conditions;

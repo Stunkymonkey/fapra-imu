@@ -24,7 +24,7 @@ public class Writer {
 
         String header = "";
         if (isSensor) {
-            header = "time;x-gyro;y-gyro;z-gyro;x-accel;y-accel;z-accel";
+            header = "time;x;y;z";
         } else {
             header = "time;x-press;y-press;x-circle;y-circle";
         }
@@ -39,7 +39,7 @@ public class Writer {
         }
     }
 
-    public void writeSensor(long time, float x_gyro, float y_gyro, float z_gyro, float x_accel, float y_accel, float z_accel) {
+    public void writeSensor(long time, float x, float y, float z) {
         if (!isSensor) {
             Log.e(TAG, "Error wrong writer");
             return;
@@ -47,12 +47,9 @@ public class Writer {
 
         String line = "";
         line += time + ";";
-        line += x_gyro + ";";
-        line += y_gyro + ";";
-        line += z_gyro + ";";
-        line += x_accel + ";";
-        line += y_accel + ";";
-        line += z_accel;
+        line += x + ";";
+        line += y + ";";
+        line += z;
 
         try {
             writer.append(line);

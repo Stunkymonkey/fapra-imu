@@ -8,7 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Writer {
-    private final String TAG = Writer.class.getName();
+    private final String TAG = this.getClass().getSimpleName();
     private FileWriter writer;
     private boolean isSensor;
 

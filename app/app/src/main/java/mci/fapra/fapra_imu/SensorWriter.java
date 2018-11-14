@@ -7,7 +7,7 @@ import android.hardware.SensorManager;
 
 public class SensorWriter {
 
-    private final String TAG = Writer.class.getName();
+    private final String TAG = this.getClass().getSimpleName();
     private final Sensor gyrometer;
     private final Sensor accelerometer;
 

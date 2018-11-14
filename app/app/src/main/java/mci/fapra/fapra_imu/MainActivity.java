@@ -12,7 +12,7 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String TAG = Writer.class.getName();
+    private final String TAG = this.getClass().getSimpleName();
 
     private String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,

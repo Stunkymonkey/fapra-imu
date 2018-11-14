@@ -6,6 +6,8 @@ import android.os.Build;
 
 public class Constants {
 
+    private final String TAG = this.getClass().getSimpleName();
+
     private static final String m_androidId = Build.MODEL;
 
     // Target sizes

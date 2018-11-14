@@ -1,11 +1,13 @@
 package mci.fapra.fapra_imu;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Point;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -17,11 +19,13 @@ import java.util.Random;
 
 public class TouchActivity extends AppCompatActivity {
 
-
-    private final String TAG = Writer.class.getName();
-
+    private final String TAG = this.getClass().getSimpleName();
+    int clicked_x = 0;
+    int clicked_y = 0;
     private SensorManager sm;
     private SensorWriter sw;
+    private Writer writer;
+
     private int iteration = 0;
     private Point[] conditions;
     private int pID;
@@ -41,9 +45,10 @@ public class TouchActivity extends AppCompatActivity {
         circle = findViewById(R.id.circle);
         circle.setLayoutParams(new RelativeLayout.LayoutParams(circleSize, circleSize));
 
-
         sm = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
         sw = new SensorWriter(pID, sm);
+        String model_name = Constants.getNameForModel();
+        writer = new Writer("fapra_imu-" + pID + "-points-" + model_name, false);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         startTask();
@@ -52,15 +57,27 @@ public class TouchActivity extends AppCompatActivity {
 
     private void startTask() {
         if (iteration < Constants.AMOUNT_REPETITIONS - 1) {
+
             final Point p = conditions[iteration];
             circle.setX(p.x);
             circle.setY(p.y);
             circle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    writer.writeAction(System.currentTimeMillis(), clicked_x, clicked_y, p.x, p.y);
                     Toast.makeText(getApplicationContext(), "Runde: " + iteration + "/" + Constants.AMOUNT_REPETITIONS, Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "" + p.x + "|" + p.y);
                     nextTask();
+                }
+            });
+            circle.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                        clicked_x = (int) event.getRawX();
+                        clicked_y = (int) event.getRawY();
+                    }
+                    return false;
                 }
             });
         } else {

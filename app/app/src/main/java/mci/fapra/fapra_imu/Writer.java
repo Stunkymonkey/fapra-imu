@@ -13,20 +13,20 @@ public class Writer {
     private boolean isSensor;
 
     public Writer(String filename, boolean isSensor) {
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), filename + "-0");
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), filename + "-0.csv");
         this.isSensor = isSensor;
 
         int counter = 1;
         while (file.exists()) {
-            file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), filename + "-" + counter);
+            file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), filename + "-" + counter + ".csv");
             counter += 1;
         }
 
         String header = "";
         if (isSensor) {
-            header = "time;x;y;z";
+            header = "time;x;y;z\n";
         } else {
-            header = "time;x-press;y-press;x-circle;y-circle";
+            header = "time;x-press;y-press;x-circle;y-circle\n";
         }
 
         Log.i(TAG, "Opening File");
@@ -49,7 +49,7 @@ public class Writer {
         line += time + ";";
         line += x + ";";
         line += y + ";";
-        line += z;
+        line += z + "\n";
 
         try {
             writer.append(line);
@@ -70,7 +70,7 @@ public class Writer {
         line += x_press + ";";
         line += y_press + ";";
         line += x_circle + ";";
-        line += y_circle;
+        line += y_circle + "\n";
 
         try {
             writer.append(line);

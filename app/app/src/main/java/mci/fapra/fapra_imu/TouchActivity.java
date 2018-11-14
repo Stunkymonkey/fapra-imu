@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 
 import java.util.Random;
 
@@ -23,19 +24,20 @@ public class TouchActivity extends AppCompatActivity {
 
     private SensorManager sm;
     private SensorWriter sw;
-    private int iteration = -1;
-
+    private int iteration = 0;
+    private Point[] conditions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_touch);
         hideSystemUI();
-        Point[] conditions = this.createConditions();
+        conditions = this.createConditions();
 
 
         sm = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
         sw = new SensorWriter(-1, sm);
+
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
@@ -79,6 +81,13 @@ public class TouchActivity extends AppCompatActivity {
         sw.onStop();
     }
 
+    private void moveView(View v, int x, int y){
+        RelativeLayout.LayoutParams params;
+        params = (RelativeLayout.LayoutParams) v.getLayoutParams();
+        params.leftMargin = x;
+        params.topMargin = y;
+        v.setLayoutParams(params);
+    }
 
     /**
      *

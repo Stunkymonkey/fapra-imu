@@ -2,6 +2,7 @@ package mci.fapra.fapra_imu;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SyncStatusObserver;
 import android.graphics.Point;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -26,6 +27,8 @@ public class TouchActivity extends AppCompatActivity {
     private SensorWriter sw;
     private Writer writer;
 
+
+    private Toast t;
     private int iteration = 0;
     private Point[] conditions;
     private int pID;
@@ -57,7 +60,6 @@ public class TouchActivity extends AppCompatActivity {
 
     private void startTask() {
         if (iteration < Constants.AMOUNT_REPETITIONS - 1) {
-
             final Point p = conditions[iteration];
             circle.setX(p.x);
             circle.setY(p.y);
@@ -65,7 +67,7 @@ public class TouchActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     writer.writeAction(System.currentTimeMillis(), clicked_x, clicked_y, p.x, p.y);
-                    Toast.makeText(getApplicationContext(), "Runde: " + iteration + "/" + Constants.AMOUNT_REPETITIONS, Toast.LENGTH_SHORT).show();
+                    showToast("Runde: " + (iteration+1) + "/" + Constants.AMOUNT_REPETITIONS);
                     Log.d(TAG, "" + p.x + "|" + p.y);
                     nextTask();
                 }
@@ -81,17 +83,30 @@ public class TouchActivity extends AppCompatActivity {
                 }
             });
         } else {
-            Toast.makeText(getApplicationContext(), "Done! ", Toast.LENGTH_SHORT).show();
+            showToast("Done!");
+            finishTask();
         }
     }
 
+    void showToast(String text)
+    {
+        if(t != null)
+        {
+            t.cancel();
+        }
+        t = Toast.makeText(this, text, Toast.LENGTH_LONG);
+        t.show();
+
+    }
     public void nextTask() {
         iteration++;
         startTask();
     }
 
     public void finishTask() {
-        //TODO implement
+        sw.onStop();
+        writer.close();
+        finish();
     }
 
     // TODO new function name

@@ -56,8 +56,8 @@ public class TouchActivity extends AppCompatActivity {
 
 
     private void startTask() {
-        while(iteration<Constants.AMOUNT_REPETITIONS){
-            final Toast t = Toast.makeText(getApplicationContext(), "Runde: " + iteration + "/" + Constants.AMOUNT_REPETITIONS, Toast.LENGTH_SHORT);
+        if (iteration < Constants.AMOUNT_REPETITIONS - 1) {
+
             final Point p = conditions[iteration];
             circle.setX(p.x);
             circle.setY(p.y);
@@ -65,11 +65,9 @@ public class TouchActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     writer.writeAction(System.currentTimeMillis(), clicked_x, clicked_y, p.x, p.y);
-                    if (t != null){
-                        t.cancel();
-                    }
-                    t.show();
-                    iteration++;
+                    Toast.makeText(getApplicationContext(), "Runde: " + iteration + "/" + Constants.AMOUNT_REPETITIONS, Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "" + p.x + "|" + p.y);
+                    nextTask();
                 }
             });
             circle.setOnTouchListener(new View.OnTouchListener() {
@@ -82,12 +80,15 @@ public class TouchActivity extends AppCompatActivity {
                     return false;
                 }
             });
+        } else {
+            Toast.makeText(getApplicationContext(), "Done! ", Toast.LENGTH_SHORT).show();
         }
-
-        Toast.makeText(getApplicationContext(), "Done! ", Toast.LENGTH_SHORT).show();
-        //finishTask();
     }
 
+    public void nextTask() {
+        iteration++;
+        startTask();
+    }
 
     public void finishTask() {
         //TODO implement

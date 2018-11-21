@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,7 +20,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class TouchActivity extends AppCompatActivity {
+public class TouchActivity extends AppCompatActivity implements TouchFragment.ExchangeTouchFragment,
+        FittsFragment.ExchangeFittsFragment {
 
     private final String TAG = this.getClass().getSimpleName();
     int clicked_x = 0;
@@ -27,8 +29,10 @@ public class TouchActivity extends AppCompatActivity {
     private SensorManager sm;
     private SensorWriter sw;
     private Writer writer;
-    private FragmentTransaction ft = null;
     private RelativeLayout touchLayout;
+
+    private TouchFragment touchFragment;
+    private FittsFragment fittsFragment;
 
     private Toast t;
     private int iteration = 0;
@@ -45,71 +49,45 @@ public class TouchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_touch);
         hideSystemUI();
 
-        touchLayout = findViewById(R.id.touch);
         pID = getIntent().getIntExtra("PARTICIPANT_ID", -1);
 
-        conditions = this.createConditions();
-        cross = findViewById(R.id.circle);
-        cross.setLayoutParams(new RelativeLayout.LayoutParams(circleSize, circleSize));
-
-        if (ft == null){
-            ft = this.getSupportFragmentManager().beginTransaction();
+        if(savedInstanceState == null){
+            touchFragment = TouchFragment.newInstance(this, pID);
+            fittsFragment = FittsFragment.newInstance(this);
         }
-        FittsTask fittsFragment = FittsTask.newInstance(this);
-        ft.replace(R.id.fitts_placeholder, fittsFragment);
 
         sm = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
         sw = new SensorWriter(pID, sm);
-        String model_name = Constants.getNameForModel();
-        writer = new Writer("fapra_imu-" + pID + "-points-" + model_name, false);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        startTask();
+        displayTouchFragment();
     }
 
 
-    @SuppressLint("ClickableViewAccessibility")
-    private void startTask() {
-        if (was_fitts) {
-            if (iteration < Constants.AMOUNT_REPETITIONS - 1) {
-                final Point p = conditions[iteration];
-                cross.setX(p.x);
-                cross.setY(p.y);
-                cross.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        writer.writeAction(System.currentTimeMillis(), clicked_x, clicked_y, p.x, p.y);
-                        showToast("Runde: " + (iteration + 1) + "/" + Constants.AMOUNT_REPETITIONS);
-                        Log.d(TAG, "" + p.x + "|" + p.y);
-                        iteration++;
-                        touchLayout.removeView(cross);
-                        //startTask();
-                        ft.commit();
-
-                    }
-                });
-                cross.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                            clicked_x = (int) event.getRawX();
-                            clicked_y = (int) event.getRawY();
-                        }
-                        return false;
-                    }
-                });
-            } else {
-                showToast("Done!");
-                finishTask();
-            }
+    private void displayTouchFragment(){
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if (touchFragment.isAdded()){
+            ft.show(touchFragment);
         } else {
-
-
+            ft.add(R.id.fragment_placeholder, touchFragment, "touch");
         }
-        was_fitts = !was_fitts;
 
-
+        if (fittsFragment.isAdded()) { ft.hide(fittsFragment); }
+        ft.commit();
     }
+
+    private void displayFittsFragment(){
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if (fittsFragment.isAdded()){
+            ft.show(fittsFragment);
+        } else {
+            ft.add(R.id.fragment_placeholder, fittsFragment, "fitts");
+        }
+
+        if (touchFragment.isAdded()) { ft.hide(touchFragment); }
+        ft.commit();
+    }
+
 
     void showToast(String text) {
         if (t != null) {
@@ -162,42 +140,18 @@ public class TouchActivity extends AppCompatActivity {
         sw.onStop();
     }
 
-    /**
-     * Create a list with random
-     *
-     * @return list holding random points for the creation of the circles
-     */
-    private Point[] createConditions() {
-        Point[] conditions = new Point[Constants.AMOUNT_ROWS * Constants.AMOUNT_COLLUMNS];
-
-        // create all possible positions
-        ArrayList<GridPosition> list = new ArrayList<GridPosition>();
-        for (int i = 0; i < Constants.AMOUNT_ROWS; i++) {
-            for (int j = 0; j < Constants.AMOUNT_COLLUMNS; j++) {
-                list.add(new GridPosition(j, i));
-            }
-        }
-        // shuffle them
-        Collections.shuffle(list);
-
-        int k = 0;
-        for (GridPosition item : list) {
-            float r = (float) item.getRow();
-            float c = (float) item.getColumn();
-            // calculate pixels per grid-position
-            float row_s = (Constants.getScreenHeight() - circleSize) / Constants.AMOUNT_ROWS;
-            float column_s = (Constants.getScreenWidth() - circleSize) / Constants.AMOUNT_COLLUMNS;
-            // scale position with pixels
-            int row = (int) (r * row_s);
-            int column = (int) (c * column_s);
-            conditions[k] = new Point(column, row);
-            k++;
-        }
-        return conditions;
+    @Override
+    public void swapToTouch() {
+        this.displayTouchFragment();
     }
 
-    private void startFitts() {
-        Intent intent = new Intent(this, FittsTask.class);
-        startActivity(intent);
+    @Override
+    public void swapToFitts() {
+        iteration++;
+        if (iteration<Constants.AMOUNT_REPETITIONS-1) {
+            this.displayFittsFragment();
+        } else {
+            finishTask();
+        }
     }
 }

@@ -15,7 +15,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class TouchActivity extends AppCompatActivity {
@@ -67,6 +68,7 @@ public class TouchActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("ClickableViewAccessibility")
     private void startTask() {
         if (was_fitts) {
             if (iteration < Constants.AMOUNT_REPETITIONS - 1) {
@@ -166,13 +168,30 @@ public class TouchActivity extends AppCompatActivity {
      * @return list holding random points for the creation of the circles
      */
     private Point[] createConditions() {
-        Point[] conditions = new Point[Constants.AMOUNT_REPETITIONS];
-        Random r = new Random();
+        Point[] conditions = new Point[Constants.AMOUNT_ROWS * Constants.AMOUNT_COLLUMNS];
 
-        for (int i = 0; i < Constants.AMOUNT_REPETITIONS; i++) {
-            int x = r.nextInt(Constants.getScreenWidth() - circleSize);
-            int y = r.nextInt(Constants.getScreenHeight() - circleSize);
-            conditions[i] = new Point(x, y);
+        // create all possible positions
+        ArrayList<GridPosition> list = new ArrayList<GridPosition>();
+        for (int i = 0; i < Constants.AMOUNT_ROWS; i++) {
+            for (int j = 0; j < Constants.AMOUNT_COLLUMNS; j++) {
+                list.add(new GridPosition(j, i));
+            }
+        }
+        // shuffle them
+        Collections.shuffle(list);
+
+        int k = 0;
+        for (GridPosition item : list) {
+            float r = (float) item.getRow();
+            float c = (float) item.getColumn();
+            // calculate pixels per grid-position
+            float row_s = (Constants.getScreenHeight() - circleSize) / Constants.AMOUNT_ROWS;
+            float column_s = (Constants.getScreenWidth() - circleSize) / Constants.AMOUNT_COLLUMNS;
+            // scale position with pixels
+            int row = (int) (r * row_s);
+            int column = (int) (c * column_s);
+            conditions[k] = new Point(column, row);
+            k++;
         }
         return conditions;
     }

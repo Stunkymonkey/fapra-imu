@@ -117,7 +117,7 @@ public class FittsTask extends Fragment{
         v.setX(x);
         v.setY(y);
     }
-    
+
     /**
     private void hideSystemUI() {
         View decorView = getWindow().getDecorView();

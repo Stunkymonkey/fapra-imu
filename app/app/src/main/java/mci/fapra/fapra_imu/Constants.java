@@ -22,7 +22,10 @@ public class Constants {
     public static final double PX_NEXUS_5X = 0.06;
     public static final double PX_NEXUS_6 = 0.05109;
 
-    public static final int AMOUNT_REPETITIONS = 12;
+
+    public static final int AMOUNT_ROWS = 15;
+    public static final int AMOUNT_COLLUMNS = 10;
+    public static final int AMOUNT_REPETITIONS = Constants.AMOUNT_ROWS * Constants.AMOUNT_COLLUMNS;
 
     /**
      * @return amount pixels on specific phone to represent constant value

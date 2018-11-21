@@ -8,7 +8,10 @@ public class Constants {
 
     private final String TAG = this.getClass().getSimpleName();
 
-    private static final String m_androidId = Build.MODEL;
+    public static final String m_androidId = Build.MODEL;
+
+    // Dragging task threshold
+    public static final int MATCH_THRESHOLD_PX = 50;
 
     // Target sizes
     public static final int CIRCLE_RADIUS = 50;
@@ -27,7 +30,8 @@ public class Constants {
     public static int getTargetPixelsForPhone(){
         int px = -1;
         // arbitrary constant delimiting the original length of the target
-        double constant = 7.194599999999999;
+        //double constant = 7.194599999999999;
+        double constant = 13.0;
         switch (m_androidId){
             case "Nexus 6":
                 px = (int)(constant / PX_NEXUS_6);

@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ActivityCompat.requestPermissions(this, permissions, 1);
-
+        Log.d("BUILD",Constants.m_androidId);
 
         final EditText participantId = (EditText) findViewById(R.id.pId);
         final Button start = (Button) findViewById(R.id.start);

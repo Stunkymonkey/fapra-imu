@@ -6,7 +6,6 @@ import android.graphics.Point;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.method.Touch;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -68,7 +67,7 @@ public class TouchFragment extends Fragment {
         super.onCreate(savedInstanceState);
         conditions = createConditions();
         pID = getArguments().getInt("pID",-1);
-        writer = new Writer("fapra_imu-" + pID + "-points-" + Constants.getNameForModel(), false);
+        writer = new Writer("fapra_imu-" + pID + "-points-" + Constants.getNameForModel(), false, false);
     }
 
     @Override
@@ -85,7 +84,7 @@ public class TouchFragment extends Fragment {
         cross = v.findViewById(R.id.cross);
         cross.setLayoutParams(new RelativeLayout.LayoutParams(crossSize, crossSize));
         final Point p = conditions[iteration];
-        Log.d("POINT", "Iteration: "+iteration+p.x+"|"+p.y);
+        Log.d("POINT", "Iteration: "+iteration+" X|Y: "+p.x+"|"+p.y);
         cross.setX(p.x);
         cross.setY(p.y);
         cross.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +94,6 @@ public class TouchFragment extends Fragment {
                 showToast("Round: " + (iteration + 1) + "/" + Constants.AMOUNT_REPETITIONS);
                 //Log.d(TAG, "" + p.x + "|" + p.y);
                 iteration++;
-                //startTask();
                 stf.swapToFitts();
 
             }
@@ -112,6 +110,13 @@ public class TouchFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        writer.close();
+    }
+
+
     void showToast(String text) {
         if (t != null) {
             t.cancel();
@@ -122,17 +127,17 @@ public class TouchFragment extends Fragment {
     }
 
     /**
-     * Create a list with random
+     * Create a list with points in a random order, covering a n x m grid defined in Constants.AMOUNT_ROWS/COLUMNS
      *
-     * @return list holding random points for the creation of the circles
+     * @return list holding points for the creation of the circles
      */
-    private Point[] createConditions() {
-        Point[] conditions = new Point[Constants.AMOUNT_ROWS * Constants.AMOUNT_COLLUMNS];
+    public Point[] createConditions() {
+        Point[] conditions = new Point[Constants.AMOUNT_ROWS * Constants.AMOUNT_COLUMNS];
 
         // create all possible positions
         ArrayList<GridPosition> list = new ArrayList<GridPosition>();
         for (int i = 0; i < Constants.AMOUNT_ROWS; i++) {
-            for (int j = 0; j < Constants.AMOUNT_COLLUMNS; j++) {
+            for (int j = 0; j < Constants.AMOUNT_COLUMNS; j++) {
                 list.add(new GridPosition(j, i));
             }
         }
@@ -145,7 +150,7 @@ public class TouchFragment extends Fragment {
             float c = (float) item.getColumn();
             // calculate pixels per grid-position
             float row_s = (Constants.getScreenHeight() - crossSize) / Constants.AMOUNT_ROWS;
-            float column_s = (Constants.getScreenWidth() - crossSize) / Constants.AMOUNT_COLLUMNS;
+            float column_s = (Constants.getScreenWidth() - crossSize) / Constants.AMOUNT_COLUMNS;
             // scale position with pixels
             int row = (int) (r * row_s);
             int column = (int) (c * column_s);

@@ -35,8 +35,8 @@ public class SensorWriter {
 
     public SensorWriter(int pID, SensorManager sensorManager) {
         String model_name = Constants.getNameForModel();
-        accWriter = new Writer("fapra_imu-" + pID + "-acc-" + model_name, true);
-        gyroWriter = new Writer("fapra_imu-" + pID + "-gyro-" + model_name, true);
+        accWriter = new Writer("fapra_imu-" + pID + "-acc-" + model_name, true, false);
+        gyroWriter = new Writer("fapra_imu-" + pID + "-gyro-" + model_name, true, false);
 
         this.sensorManager = sensorManager;
         gyrometer = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);

@@ -24,8 +24,8 @@ public class Constants {
 
 
     public static final int AMOUNT_ROWS = 15;
-    public static final int AMOUNT_COLLUMNS = 10;
-    public static final int AMOUNT_REPETITIONS = Constants.AMOUNT_ROWS * Constants.AMOUNT_COLLUMNS;
+    public static final int AMOUNT_COLUMNS = 10;
+    public static final int AMOUNT_REPETITIONS = Constants.AMOUNT_ROWS * Constants.AMOUNT_COLUMNS;
 
     /**
      * @return amount pixels on specific phone to represent constant value

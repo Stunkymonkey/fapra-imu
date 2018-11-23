@@ -12,12 +12,15 @@ public class Writer {
     private FileWriter writer;
     private boolean isSensor;
 
-    public Writer(String filename, boolean isSensor) {
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), filename + "-0.csv");
+    public Writer(String filename, boolean isSensor, boolean isFitts) {
         this.isSensor = isSensor;
+
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), filename + "-0.csv");
+
 
         int counter = 1;
         while (file.exists()) {
+            Log.d(TAG, "Creating a new file.");
             file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), filename + "-" + counter + ".csv");
             counter += 1;
         }
@@ -27,6 +30,10 @@ public class Writer {
             header = "time;x;y;z\n";
         } else {
             header = "time;x-press;y-press;x-circle;y-circle\n";
+        }
+
+        if (isFitts) {
+            header = "time\n";
         }
 
         Log.i(TAG, "Opening File");
@@ -77,6 +84,19 @@ public class Writer {
             writer.flush();
         } catch (IOException e) {
             Log.e(TAG, "Error writing action", e);
+        }
+    }
+
+    public void writeFitts(long time) {
+        if (isSensor) {
+            Log.e(TAG, "Error wrong writer");
+            return;
+        }
+        try {
+            writer.append(time+"\n");
+            writer.flush();
+        } catch (IOException e) {
+            Log.e(TAG, "Error writing fitts", e);
         }
     }
 

@@ -4,7 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true">
-
+    <TextView
+        android:id="@+id/touch_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Touch the cross."
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"/>
     <ImageView
     android:id="@+id/cross"
     android:layout_width = "100dp"

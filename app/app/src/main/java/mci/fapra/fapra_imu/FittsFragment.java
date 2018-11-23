@@ -18,28 +18,23 @@ public class FittsFragment extends Fragment{
     // variables for dragging
     private int initialX;
     private int initialY;
+    private int pID;
     private Point initialWindow;
 
     ExchangeFittsFragment stt;
 
+    private Writer writer;
     private ImageView tile = null;
     private ImageView target = null;
     static TouchActivity touchActivity;
 
 
-   //TODO delete this garbage if unused
-    public View onCreateView2(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState){
-        View myView = inflater.inflate(R.layout.fitts_fragment, container,false);
-
-
-
-        touchActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        return myView;
-    }
-
-    public static FittsFragment newInstance(TouchActivity ta){
+    public static FittsFragment newInstance(TouchActivity activity, int pID){
         FittsFragment ft = new FittsFragment();
-        touchActivity = ta;
+        touchActivity = activity;
+        Bundle args = new Bundle();
+        args.putInt("pID",pID);
+        ft.setArguments(args);
         return ft;
     }
 
@@ -53,6 +48,13 @@ public class FittsFragment extends Fragment{
             throw new ClassCastException(touchActivity.toString()
                     + " must implement ExchangeFittsFragmentInterface");
         }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        pID = getArguments().getInt("pID",-1);
+        writer = new Writer("fapra_imu-" + pID + "-fitts-" + Constants.getNameForModel(), false, true);
     }
 
     @Override
@@ -98,9 +100,11 @@ public class FittsFragment extends Fragment{
 
                         Point t = getViewPos(target);
                         Point s = getViewPos(tile);
+                        //calculate euclidean distance between tile (top left x,y) and target (top left x,y)
                         double dist = Math.sqrt(Math.pow(t.x - s.x, 2) + Math.pow(t.y - s.y, 2));
 
                         if (dist < Constants.MATCH_THRESHOLD_PX) {
+                            writer.writeFitts(System.currentTimeMillis());
                             stt.swapToTouch();
                         }
                         break;
@@ -120,6 +124,12 @@ public class FittsFragment extends Fragment{
         });
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        writer.close();
+    }
+
     private Point getViewPos(View v){
         return new Point((int)v.getX(),(int)v.getY());
     }
@@ -129,17 +139,6 @@ public class FittsFragment extends Fragment{
         v.setY(y);
     }
 
-    /**
-    private void hideSystemUI() {
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_IMMERSIVE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
-    }**/
     public interface ExchangeFittsFragment{
         void swapToTouch();
     }

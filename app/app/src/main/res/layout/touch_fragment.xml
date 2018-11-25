@@ -12,11 +12,10 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"/>
     <ImageView
-    android:id="@+id/cross"
-    android:layout_width = "100dp"
-    android:layout_height= "100dp"
-    android:src="@drawable/plus"/>
-
+        android:id="@+id/cross"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/plus"/>
 </RelativeLayout>
 
 

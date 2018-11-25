@@ -30,26 +30,24 @@ public class Constants {
     /**
      * @return amount pixels on specific phone to represent constant value
      */
-    public static int getTargetPixelsForPhone(){
-        int px = -1;
-        // arbitrary constant delimiting the original length of the target
-        //double constant = 7.194599999999999;
-        double constant = 13.0;
+    public static int getTargetPixelsForPhone(float sizeInMM){
+        int px;
+        // constant delimiting the original length of the target
         switch (m_androidId){
             case "Nexus 6":
-                px = (int)(constant / PX_NEXUS_6);
+                px = (int)(sizeInMM / PX_NEXUS_6);
                 break;
             case "Nexus 5X":
-                px = (int)(constant / PX_NEXUS_5X);
+                px = (int)(sizeInMM / PX_NEXUS_5X);
                 break;
             case "GT-I9505":
-                px = (int)(constant / PX_S4);
+                px = (int)(sizeInMM / PX_S4);
                 break;
             case "GT-I8190":
-                px = (int)(constant / PX_S3_MINI);
+                px = (int)(sizeInMM / PX_S3_MINI);
                 break;
             default:
-                px = (int)(constant / PX_S4);
+                px = (int)(sizeInMM / PX_S4);
         }
         return px;
     }

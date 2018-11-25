@@ -1,11 +1,11 @@
 package mci.fapra.fapra_imu;
 
 import android.content.Context;
-import android.graphics.Point;
+import android.content.DialogInterface;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
@@ -25,6 +25,9 @@ public class TouchActivity extends AppCompatActivity implements TouchFragment.Ex
     private int iteration = 0;
     private int pID;
 
+    public Writer touchWriter = null;
+    public Writer fittsWriter = null;
+
 
 
     @Override
@@ -35,9 +38,12 @@ public class TouchActivity extends AppCompatActivity implements TouchFragment.Ex
 
         pID = getIntent().getIntExtra("PARTICIPANT_ID", -1);
 
+        touchWriter = new Writer("fapra_imu-" + pID + "-points-" + Constants.getNameForModel(), false, false);
+        fittsWriter = new Writer("fapra_imu-" + pID + "-fitts-" + Constants.getNameForModel(), false, true);
+
         if(savedInstanceState == null){
-            touchFragment = TouchFragment.newInstance(this, pID);
-            fittsFragment = FittsFragment.newInstance(this, pID);
+            touchFragment = TouchFragment.newInstance(this);
+            fittsFragment = FittsFragment.newInstance(this);
         }
         sm = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
         sw = new SensorWriter(pID, sm);
@@ -71,9 +77,13 @@ public class TouchActivity extends AppCompatActivity implements TouchFragment.Ex
         ft.commit();
     }
 
-
+    /**
+     * Close all writers, go to MainActivity
+     */
     public void finishTask() {
         sw.onStop();
+        fittsWriter.close();
+        touchWriter.close();
         finish();
     }
 
@@ -83,6 +93,26 @@ public class TouchActivity extends AppCompatActivity implements TouchFragment.Ex
         showSystemUI();
     }
 
+    @Override
+    public void onBackPressed(){
+        final AlertDialog.Builder finishedDialog = new AlertDialog.Builder(this);
+        finishedDialog.setMessage("Do you really want to leave the application?");
+        finishedDialog.setTitle("Alert");
+        finishedDialog.setCancelable(false);
+        finishedDialog.setPositiveButton("LEAVE",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finishTask();
+                    }
+                });
+        finishedDialog.setNegativeButton("STAY", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                hideSystemUI();
+            }
+        });
+        finishedDialog.show();
+    }
 
     private void hideSystemUI() {
         View decorView = getWindow().getDecorView();

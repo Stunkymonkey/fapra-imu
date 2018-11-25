@@ -8,33 +8,32 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.Random;
 
 public class FittsFragment extends Fragment{
 
     // variables for dragging
+    private int iteration = 0;
     private int initialX;
     private int initialY;
-    private int pID;
     private Point initialWindow;
 
     ExchangeFittsFragment stt;
 
-    private Writer writer;
     private ImageView tile = null;
     private ImageView target = null;
+    private TextView fittsText = null;
     static TouchActivity touchActivity;
+    private int rectSize= Constants.getTargetPixelsForPhone(13);
 
 
-    public static FittsFragment newInstance(TouchActivity activity, int pID){
+    public static FittsFragment newInstance(TouchActivity activity){
         FittsFragment ft = new FittsFragment();
         touchActivity = activity;
-        Bundle args = new Bundle();
-        args.putInt("pID",pID);
-        ft.setArguments(args);
         return ft;
     }
 
@@ -53,8 +52,6 @@ public class FittsFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        pID = getArguments().getInt("pID",-1);
-        writer = new Writer("fapra_imu-" + pID + "-fitts-" + Constants.getNameForModel(), false, true);
     }
 
     @Override
@@ -67,8 +64,18 @@ public class FittsFragment extends Fragment{
     @Override
     public void onViewCreated(View v, Bundle savedInstanceState) {
         super.onViewCreated(v,savedInstanceState);
+
+        fittsText = v.findViewById(R.id.fitts_text);
+        if (iteration>1){
+            fittsText.setVisibility(View.GONE);
+        }
+
+        //Set uniform size over all phones for target and tile
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(rectSize,rectSize);
         tile = v.findViewById(R.id.tile);
         target = v.findViewById(R.id.target);
+        tile.setLayoutParams(params);
+        target.setLayoutParams(params);
 
         if(new Random().nextBoolean()) {
             moveView(tile, (int) (Constants.getScreenWidth() * 0.05), (int) (Constants.getScreenHeight() * 0.66));
@@ -104,7 +111,8 @@ public class FittsFragment extends Fragment{
                         double dist = Math.sqrt(Math.pow(t.x - s.x, 2) + Math.pow(t.y - s.y, 2));
 
                         if (dist < Constants.MATCH_THRESHOLD_PX) {
-                            writer.writeFitts(System.currentTimeMillis());
+                            touchActivity.fittsWriter.writeFitts(System.currentTimeMillis());
+                            iteration++;
                             stt.swapToTouch();
                         }
                         break;
@@ -127,7 +135,6 @@ public class FittsFragment extends Fragment{
     @Override
     public void onDetach() {
         super.onDetach();
-        writer.close();
     }
 
     private Point getViewPos(View v){

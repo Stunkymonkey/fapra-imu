@@ -151,7 +151,7 @@ public class TouchActivity extends AppCompatActivity implements TouchFragment.Ex
     @Override
     public void swapToFitts() {
         iteration++;
-        if (iteration<Constants.AMOUNT_REPETITIONS-1) {
+        if (iteration <= Constants.AMOUNT_REPETITIONS - 1) {
             this.displayFittsFragment();
         } else {
             finishTask();

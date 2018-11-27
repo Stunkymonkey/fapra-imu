@@ -8,4 +8,5 @@
     <string name="start">Start</string>
     <string name="touch_the_cross">Touch the cross.</string>
     <string name="croshair">croshair</string>
+    <string name="participant_id">participant ID</string>
 </resources>

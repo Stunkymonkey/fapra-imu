@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:text="@string/touch_the_cross"
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"/>
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp" />
 
     <ImageView
         android:id="@+id/cross"

@@ -81,7 +81,9 @@ public class FittsFragment extends Fragment{
         tile.setLayoutParams(params);
         target.setLayoutParams(params);
 
-        acitivity_text.setText("Round: " + (iteration + 1) + "/" + Constants.AMOUNT_REPETITIONS);
+        // acitivity_text.setText("Round: " + (iteration + 1) + "/" + Constants.AMOUNT_REPETITIONS);
+        String percent = String.format("%.2f" , ((float) (iteration + 1) / Constants.AMOUNT_REPETITIONS * 100));
+        acitivity_text.setText("Progress: " + percent + "%");
 
         if(new Random().nextBoolean()) {
             moveView(tile, (int) (Constants.getScreenWidth() * 0.05), (int) (Constants.getScreenHeight() * 0.66));

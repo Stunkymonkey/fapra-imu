@@ -23,8 +23,8 @@ public class Constants {
     public static final double PX_NEXUS_6 = 0.05109;
 
 
-    public static final int AMOUNT_ROWS = 15;
-    public static final int AMOUNT_COLUMNS = 10;
+    public static final int AMOUNT_ROWS = 22;
+    public static final int AMOUNT_COLUMNS = 16;
     public static final int AMOUNT_REPETITIONS = Constants.AMOUNT_ROWS * Constants.AMOUNT_COLUMNS;
 
     /**

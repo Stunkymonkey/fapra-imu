@@ -134,8 +134,8 @@ public class TouchFragment extends Fragment {
             int r = item.getRow();
             int c = item.getColumn();
             // calculate pixels per grid-position
-            float row_s = (float)(Constants.getScreenHeight() - crossSize) / Constants.AMOUNT_ROWS;
-            float column_s = (float) (Constants.getScreenWidth() - crossSize) / Constants.AMOUNT_COLUMNS;
+            float row_s = (float) (Constants.getScreenHeight() - crossSize) / (Constants.AMOUNT_ROWS - 1);
+            float column_s = (float) (Constants.getScreenWidth() - crossSize) / (Constants.AMOUNT_COLUMNS - 1);
             // scale position with pixels
             int row = (int) (r * row_s);
             int column = (int) (c * column_s);

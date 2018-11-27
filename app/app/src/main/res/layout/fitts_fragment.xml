@@ -9,17 +9,35 @@
         android:id="@+id/fitts_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Drag the red square into the red dotted square."
+        android:text="@string/drag_the_red_square_into_the_red_dotted_square"
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"/>
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp" />
+
+    <TextView
+        android:id="@+id/acitivity_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:text="@string/round_0"
+        android:textSize="30sp"
+        android:textStyle="bold"/>
+
     <ImageView
-    android:id="@+id/target"
-    android:layout_width="90dp"
-    android:layout_height="90dp"
-    android:src="@drawable/dashed_rectangle" />
+        android:id="@+id/target"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:contentDescription="@string/target"
+        android:src="@drawable/dashed_rectangle" />
+
     <ImageView
-    android:id="@+id/tile"
-    android:layout_width="90dp"
-    android:layout_height="90dp"
-    android:src="@drawable/rectangle" />
+        android:id="@+id/tile"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:contentDescription="@string/square"
+        android:src="@drawable/rectangle" />
 </RelativeLayout>

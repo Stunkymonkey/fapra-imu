@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import java.util.Random;
 
+import static mci.fapra.fapra_imu.Constants.AMOUNT_REPETITIONS;
+
 public class FittsFragment extends Fragment{
 
     // variables for dragging
@@ -27,6 +29,7 @@ public class FittsFragment extends Fragment{
     private ImageView tile = null;
     private ImageView target = null;
     private TextView fittsText = null;
+    private TextView acitivity_text = null;
     static TouchActivity touchActivity;
     private int rectSize= Constants.getTargetPixelsForPhone(13);
 
@@ -74,8 +77,11 @@ public class FittsFragment extends Fragment{
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(rectSize,rectSize);
         tile = v.findViewById(R.id.tile);
         target = v.findViewById(R.id.target);
+        acitivity_text = v.findViewById(R.id.acitivity_text);
         tile.setLayoutParams(params);
         target.setLayoutParams(params);
+
+        acitivity_text.setText("Round: " + (iteration + 1) + "/" + Constants.AMOUNT_REPETITIONS);
 
         if(new Random().nextBoolean()) {
             moveView(tile, (int) (Constants.getScreenWidth() * 0.05), (int) (Constants.getScreenHeight() * 0.66));

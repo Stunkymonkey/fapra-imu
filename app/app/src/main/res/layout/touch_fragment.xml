@@ -8,14 +8,16 @@
         android:id="@+id/touch_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Touch the cross."
+        android:text="@string/touch_the_cross"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"/>
+
     <ImageView
         android:id="@+id/cross"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:src="@drawable/plus"/>
+        android:contentDescription="@string/croshair"
+        android:src="@drawable/plus" />
 </RelativeLayout>
 
 

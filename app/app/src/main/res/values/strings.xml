@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Fapra-imu</string>
+    <string name="drag_the_red_square_into_the_red_dotted_square">Drag the red square into the red dotted square.</string>
+    <string name="round_0">Round: 0/∞</string>
+    <string name="square">square</string>
+    <string name="target">target</string>
+    <string name="id">ID</string>
+    <string name="start">Start</string>
+    <string name="touch_the_cross">Touch the cross.</string>
+    <string name="croshair">croshair</string>
 </resources>

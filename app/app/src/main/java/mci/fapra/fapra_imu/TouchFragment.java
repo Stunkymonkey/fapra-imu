@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,7 +20,6 @@ public class TouchFragment extends Fragment {
 
     private ImageView cross;
     private TextView touchText = null;
-    private Toast t;
 
     static TouchActivity touchActivity;
 
@@ -84,8 +82,6 @@ public class TouchFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 touchActivity.touchWriter.writeAction(System.currentTimeMillis(), clicked_x, clicked_y, p.x+(crossSize/2), p.y+(crossSize/2));
-                //TODO maybe display rounds in an other way, e.g. in FittsFragment, so targets cannot be drawn underneath Toast
-                showToast("Round: " + (iteration + 1) + "/" + Constants.AMOUNT_REPETITIONS);
                 iteration++;
                 stf.swapToFitts();
             }
@@ -100,15 +96,6 @@ public class TouchFragment extends Fragment {
                 return false;
             }
         });
-    }
-
-    void showToast(String text) {
-        if (t != null) {
-            t.cancel();
-        }
-        t = Toast.makeText(getContext(), text, Toast.LENGTH_LONG);
-        t.show();
-
     }
 
     /**

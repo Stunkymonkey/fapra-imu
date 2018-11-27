@@ -18,13 +18,10 @@ import java.util.Collections;
 
 public class TouchFragment extends Fragment {
 
+    static TouchActivity touchActivity;
+    ExchangeTouchFragment stf;
     private ImageView cross;
     private TextView touchText = null;
-
-    static TouchActivity touchActivity;
-
-    ExchangeTouchFragment stf;
-
     private int crossSize = Constants.getTargetPixelsForPhone(10);
     private int iteration = 0;
     private int clicked_x = 0;
@@ -32,7 +29,7 @@ public class TouchFragment extends Fragment {
 
     private Point[] conditions = createConditions();
 
-    public static TouchFragment newInstance(TouchActivity activity){
+    public static TouchFragment newInstance(TouchActivity activity) {
         TouchFragment tf = new TouchFragment();
         touchActivity = activity;
         return tf;
@@ -51,7 +48,7 @@ public class TouchFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
@@ -64,11 +61,11 @@ public class TouchFragment extends Fragment {
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public void onViewCreated(View v, Bundle savedInstanceState){
-        super.onViewCreated(v,savedInstanceState);
+    public void onViewCreated(View v, Bundle savedInstanceState) {
+        super.onViewCreated(v, savedInstanceState);
 
         touchText = v.findViewById(R.id.touch_text);
-        if (iteration>1){
+        if (iteration > 1) {
             touchText.setVisibility(View.GONE);
         }
 
@@ -81,7 +78,7 @@ public class TouchFragment extends Fragment {
         cross.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                touchActivity.touchWriter.writeAction(System.currentTimeMillis(), clicked_x, clicked_y, p.x+(crossSize/2), p.y+(crossSize/2));
+                touchActivity.touchWriter.writeAction(System.currentTimeMillis(), clicked_x, clicked_y, p.x + (crossSize / 2), p.y + (crossSize / 2));
                 iteration++;
                 stf.swapToFitts();
             }
@@ -131,7 +128,8 @@ public class TouchFragment extends Fragment {
         }
         return conditions;
     }
-    public interface ExchangeTouchFragment{
+
+    public interface ExchangeTouchFragment {
         void swapToFitts();
     }
 }

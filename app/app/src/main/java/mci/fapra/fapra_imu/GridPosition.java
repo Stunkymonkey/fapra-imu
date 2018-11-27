@@ -12,6 +12,7 @@ public class GridPosition {
     public int getColumn() {
         return column;
     }
+
     public int getRow() {
         return row;
     }

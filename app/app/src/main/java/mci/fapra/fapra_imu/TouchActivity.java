@@ -11,24 +11,18 @@ import android.view.View;
 import android.view.WindowManager;
 
 
-
 public class TouchActivity extends AppCompatActivity implements TouchFragment.ExchangeTouchFragment,
         FittsFragment.ExchangeFittsFragment {
 
     private final String TAG = this.getClass().getSimpleName();
-    private SensorManager sm;
-    private SensorWriter sw;
-
-    private TouchFragment touchFragment;
-    private FittsFragment fittsFragment;
-
-    private int iteration = 0;
-    private int pID;
-
     public Writer touchWriter = null;
     public Writer fittsWriter = null;
-
-
+    private SensorManager sm;
+    private SensorWriter sw;
+    private TouchFragment touchFragment;
+    private FittsFragment fittsFragment;
+    private int iteration = 0;
+    private int pID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +35,7 @@ public class TouchActivity extends AppCompatActivity implements TouchFragment.Ex
         touchWriter = new Writer("fapra_imu-" + pID + "-points-" + Constants.getNameForModel(), false, false);
         fittsWriter = new Writer("fapra_imu-" + pID + "-fitts-" + Constants.getNameForModel(), false, true);
 
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             touchFragment = TouchFragment.newInstance(this);
             fittsFragment = FittsFragment.newInstance(this);
         }
@@ -53,27 +47,31 @@ public class TouchActivity extends AppCompatActivity implements TouchFragment.Ex
     }
 
 
-    private void displayTouchFragment(){
+    private void displayTouchFragment() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        if (touchFragment.isAdded()){
+        if (touchFragment.isAdded()) {
             ft.show(touchFragment);
-        } else{
+        } else {
             ft.add(R.id.fragment_placeholder, touchFragment, "touch");
         }
 
-        if (fittsFragment.isAdded()) { ft.replace(R.id.fragment_placeholder, touchFragment); }
+        if (fittsFragment.isAdded()) {
+            ft.replace(R.id.fragment_placeholder, touchFragment);
+        }
         ft.commit();
     }
 
-    private void displayFittsFragment(){
+    private void displayFittsFragment() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        if (fittsFragment.isAdded()){
+        if (fittsFragment.isAdded()) {
             ft.show(fittsFragment);
         } else {
             ft.add(R.id.fragment_placeholder, fittsFragment, "fitts");
         }
 
-        if (touchFragment.isAdded()) { ft.replace(R.id.fragment_placeholder, fittsFragment); }
+        if (touchFragment.isAdded()) {
+            ft.replace(R.id.fragment_placeholder, fittsFragment);
+        }
         ft.commit();
     }
 
@@ -94,7 +92,7 @@ public class TouchActivity extends AppCompatActivity implements TouchFragment.Ex
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         final AlertDialog.Builder finishedDialog = new AlertDialog.Builder(this);
         finishedDialog.setMessage("Do you really want to leave the application?");
         finishedDialog.setTitle("Alert");

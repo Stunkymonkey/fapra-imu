@@ -2,8 +2,8 @@ package mci.fapra.fapra_imu;
 
 import android.content.Context;
 import android.graphics.Point;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,27 +14,23 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-import static mci.fapra.fapra_imu.Constants.AMOUNT_REPETITIONS;
+public class FittsFragment extends Fragment {
 
-public class FittsFragment extends Fragment{
-
+    static TouchActivity touchActivity;
+    ExchangeFittsFragment stt;
     // variables for dragging
     private int iteration = 0;
     private int initialX;
     private int initialY;
     private Point initialWindow;
-
-    ExchangeFittsFragment stt;
-
     private ImageView tile = null;
     private ImageView target = null;
     private TextView fittsText = null;
     private TextView acitivity_text = null;
-    static TouchActivity touchActivity;
-    private int rectSize= Constants.getTargetPixelsForPhone(13);
+    private int rectSize = Constants.getTargetPixelsForPhone(13);
 
 
-    public static FittsFragment newInstance(TouchActivity activity){
+    public static FittsFragment newInstance(TouchActivity activity) {
         FittsFragment ft = new FittsFragment();
         touchActivity = activity;
         return ft;
@@ -53,7 +49,7 @@ public class FittsFragment extends Fragment{
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
@@ -66,15 +62,15 @@ public class FittsFragment extends Fragment{
 
     @Override
     public void onViewCreated(View v, Bundle savedInstanceState) {
-        super.onViewCreated(v,savedInstanceState);
+        super.onViewCreated(v, savedInstanceState);
 
         fittsText = v.findViewById(R.id.fitts_text);
-        if (iteration>1){
+        if (iteration > 1) {
             fittsText.setVisibility(View.GONE);
         }
 
         //Set uniform size over all phones for target and tile
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(rectSize,rectSize);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(rectSize, rectSize);
         tile = v.findViewById(R.id.tile);
         target = v.findViewById(R.id.target);
         acitivity_text = v.findViewById(R.id.acitivity_text);
@@ -82,10 +78,10 @@ public class FittsFragment extends Fragment{
         target.setLayoutParams(params);
 
         // acitivity_text.setText("Round: " + (iteration + 1) + "/" + Constants.AMOUNT_REPETITIONS);
-        String percent = String.format("%.2f" , ((float) (iteration + 1) / Constants.AMOUNT_REPETITIONS * 100));
+        String percent = String.format("%.2f", ((float) (iteration + 1) / Constants.AMOUNT_REPETITIONS * 100));
         acitivity_text.setText("Progress: " + percent + "%");
 
-        if(new Random().nextBoolean()) {
+        if (new Random().nextBoolean()) {
             moveView(tile, (int) (Constants.getScreenWidth() * 0.05), (int) (Constants.getScreenHeight() * 0.66));
             moveView(target, (int) (Constants.getScreenWidth() * 0.70), (int) (Constants.getScreenHeight() * 0.66));
         } else {
@@ -145,16 +141,16 @@ public class FittsFragment extends Fragment{
         super.onDetach();
     }
 
-    private Point getViewPos(View v){
-        return new Point((int)v.getX(),(int)v.getY());
+    private Point getViewPos(View v) {
+        return new Point((int) v.getX(), (int) v.getY());
     }
 
-    private void moveView(View v, int x, int y){
+    private void moveView(View v, int x, int y) {
         v.setX(x);
         v.setY(y);
     }
 
-    public interface ExchangeFittsFragment{
+    public interface ExchangeFittsFragment {
         void swapToTouch();
     }
 }

@@ -93,7 +93,7 @@ public class Writer {
             return;
         }
         try {
-            writer.append(time+"\n");
+            writer.append(time + "\n");
             writer.flush();
         } catch (IOException e) {
             Log.e(TAG, "Error writing fitts", e);

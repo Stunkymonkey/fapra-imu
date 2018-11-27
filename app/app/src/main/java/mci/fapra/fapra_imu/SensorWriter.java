@@ -44,7 +44,7 @@ public class SensorWriter {
 
         this.sensorManager = sensorManager;
         List<Sensor> list = sensorManager.getSensorList(Sensor.TYPE_ALL);
-        for(Sensor sensor: list){
+        for (Sensor sensor : list) {
             Log.d("List-Sensor", sensor.toString());
         }
 

@@ -4,6 +4,9 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.util.Log;
+
+import java.util.List;
 
 public class SensorWriter {
 
@@ -13,6 +16,7 @@ public class SensorWriter {
 
     private final Writer accWriter;
     private final Writer gyroWriter;
+
     public SensorEventListener AccListener = new SensorEventListener() {
         public void onAccuracyChanged(Sensor sensor, int acc) {
         }
@@ -39,6 +43,11 @@ public class SensorWriter {
         gyroWriter = new Writer("fapra_imu-" + pID + "-gyro-" + model_name, true, false);
 
         this.sensorManager = sensorManager;
+        List<Sensor> list = sensorManager.getSensorList(Sensor.TYPE_ALL);
+        for(Sensor sensor: list){
+            Log.d("List-Sensor", sensor.toString());
+        }
+
         gyrometer = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
     }

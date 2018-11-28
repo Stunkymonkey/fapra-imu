@@ -14,9 +14,12 @@ public class MainActivity extends AppCompatActivity {
 
     private final String TAG = this.getClass().getSimpleName();
 
-    private String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE,
+    private String[] permissions = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.WAKE_LOCK};
+            Manifest.permission.WAKE_LOCK,
+            Manifest.permission.ACCESS_FINE_LOCATION
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

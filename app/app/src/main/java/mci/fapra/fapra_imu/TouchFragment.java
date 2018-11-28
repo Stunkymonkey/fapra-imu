@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -64,7 +65,7 @@ public class TouchFragment extends Fragment {
     @Override
     public void onViewCreated(View v, Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
-
+        
         touchText = v.findViewById(R.id.touch_text);
         if (iteration > 1) {
             touchText.setVisibility(View.GONE);
@@ -123,12 +124,9 @@ public class TouchFragment extends Fragment {
             // calculate pixels per grid-position
             float row_s = (float) (Constants.getScreenHeight() - crossSize) / Constants.AMOUNT_ROWS;
             float column_s = (float) (Constants.getScreenWidth() - crossSize) / Constants.AMOUNT_COLUMNS;
-            // get size of one cell
-            int row_size = Constants.getScreenHeight() / Constants.AMOUNT_ROWS;
-            int column_size = Constants.getScreenWidth() / Constants.AMOUNT_COLUMNS;
             //randomize within cell
-            int rand_row_p = new Random().nextInt(row_size);
-            int rand_column_p = new Random().nextInt(column_size);
+            int rand_row_p = new Random().nextInt((int) row_s);
+            int rand_column_p = new Random().nextInt((int) column_s);
             // scale position with pixels
             int row = ((int) (r * row_s)) + rand_row_p;
             int column = ((int) (c * column_s)) + rand_column_p;

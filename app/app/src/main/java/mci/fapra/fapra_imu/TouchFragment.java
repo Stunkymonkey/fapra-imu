@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 public class TouchFragment extends Fragment {
 
@@ -101,13 +102,15 @@ public class TouchFragment extends Fragment {
      * @return list holding points for the creation of the circles
      */
     public Point[] createConditions() {
-        Point[] conditions = new Point[Constants.AMOUNT_ROWS * Constants.AMOUNT_COLUMNS];
+        Point[] conditions = new Point[Constants.AMOUNT_REPETITIONS];
 
         // create all possible positions
         ArrayList<GridPosition> list = new ArrayList<GridPosition>();
-        for (int i = 0; i < Constants.AMOUNT_ROWS; i++) {
-            for (int j = 0; j < Constants.AMOUNT_COLUMNS; j++) {
-                list.add(new GridPosition(j, i));
+        for (int h = 0; h < Constants.AMOUNT_ROUNDS; h++) {
+            for (int i = 0; i < Constants.AMOUNT_ROWS; i++) {
+                for (int j = 0; j < Constants.AMOUNT_COLUMNS; j++) {
+                    list.add(new GridPosition(j, i));
+                }
             }
         }
         // shuffle them
@@ -118,11 +121,17 @@ public class TouchFragment extends Fragment {
             int r = item.getRow();
             int c = item.getColumn();
             // calculate pixels per grid-position
-            float row_s = (float) (Constants.getScreenHeight() - crossSize) / (Constants.AMOUNT_ROWS - 1);
-            float column_s = (float) (Constants.getScreenWidth() - crossSize) / (Constants.AMOUNT_COLUMNS - 1);
+            float row_s = (float) (Constants.getScreenHeight() - crossSize) / Constants.AMOUNT_ROWS;
+            float column_s = (float) (Constants.getScreenWidth() - crossSize) / Constants.AMOUNT_COLUMNS;
+            // get size of one cell
+            int row_size = Constants.getScreenHeight() / Constants.AMOUNT_ROWS;
+            int column_size = Constants.getScreenWidth() / Constants.AMOUNT_COLUMNS;
+            //randomize within cell
+            int rand_row_p = new Random().nextInt(row_size);
+            int rand_column_p = new Random().nextInt(column_size);
             // scale position with pixels
-            int row = (int) (r * row_s);
-            int column = (int) (c * column_s);
+            int row = ((int) (r * row_s)) + rand_row_p;
+            int column = ((int) (c * column_s)) + rand_column_p;
             conditions[k] = new Point(column, row);
             k++;
         }

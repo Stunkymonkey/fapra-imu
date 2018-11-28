@@ -18,7 +18,8 @@ public class Constants {
     public static final double PX_NEXUS_6 = 0.05109;
     public static final int AMOUNT_ROWS = 22;
     public static final int AMOUNT_COLUMNS = 16;
-    public static final int AMOUNT_REPETITIONS = Constants.AMOUNT_ROWS * Constants.AMOUNT_COLUMNS;
+    public static final int AMOUNT_ROUNDS = 2;
+    public static final int AMOUNT_REPETITIONS = AMOUNT_ROWS * AMOUNT_COLUMNS * AMOUNT_ROUNDS;
     private final String TAG = this.getClass().getSimpleName();
 
     /**

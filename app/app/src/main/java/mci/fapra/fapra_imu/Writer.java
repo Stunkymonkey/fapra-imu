@@ -3,13 +3,14 @@ package mci.fapra.fapra_imu;
 import android.os.Environment;
 import android.util.Log;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class Writer {
     private final String TAG = this.getClass().getSimpleName();
-    private FileWriter writer;
+    private BufferedWriter writer;
     private boolean isSensor;
 
     public Writer(String filename, boolean isSensor, boolean isFitts) {
@@ -38,7 +39,8 @@ public class Writer {
 
         Log.i(TAG, "Opening File");
         try {
-            writer = new FileWriter(file, false);
+            FileWriter tmp = new FileWriter(file, false);
+            writer = new BufferedWriter(tmp, 1000);
             writer.append(header);
             writer.flush();
         } catch (IOException e) {

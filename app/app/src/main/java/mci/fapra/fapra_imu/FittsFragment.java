@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,10 +24,10 @@ public class FittsFragment extends Fragment {
     private int initialX;
     private int initialY;
     private Point initialWindow;
+    private ProgressBar progress;
     private ImageView tile = null;
     private ImageView target = null;
     private TextView fittsText = null;
-    private TextView acitivity_text = null;
     private int rectSize = Constants.getTargetPixelsForPhone(13);
 
 
@@ -66,20 +67,28 @@ public class FittsFragment extends Fragment {
 
         fittsText = v.findViewById(R.id.fitts_text);
         if (iteration > 1) {
-            fittsText.setVisibility(View.GONE);
+            fittsText.setVisibility(View.INVISIBLE);
         }
 
         //Set uniform size over all phones for target and tile
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(rectSize, rectSize);
         tile = v.findViewById(R.id.tile);
         target = v.findViewById(R.id.target);
-        acitivity_text = v.findViewById(R.id.acitivity_text);
         tile.setLayoutParams(params);
         target.setLayoutParams(params);
 
-        // acitivity_text.setText("Round: " + (iteration + 1) + "/" + Constants.AMOUNT_REPETITIONS);
-        String percent = String.format("%.2f", ((float) (iteration + 1) / Constants.AMOUNT_REPETITIONS * 100));
-        acitivity_text.setText("Progress: " + percent + "%");
+        //Progressbar for finished rounds
+        final float percent = ((float) (iteration + 1) / Constants.AMOUNT_REPETITIONS * 100);
+        progress = v.findViewById(R.id.progress_rounds);
+        RelativeLayout.LayoutParams paramsProgress = (RelativeLayout.LayoutParams) progress.getLayoutParams();
+        paramsProgress.width = Constants.getScreenWidth() / 100 * 85;
+        progress.setLayoutParams(paramsProgress);
+        progress.post(new Runnable() {
+            @Override
+            public void run() {
+                progress.setProgress((int) percent);
+            }
+        });
 
         if (new Random().nextBoolean()) {
             moveView(tile, (int) (Constants.getScreenWidth() * 0.05), (int) (Constants.getScreenHeight() * 0.66));

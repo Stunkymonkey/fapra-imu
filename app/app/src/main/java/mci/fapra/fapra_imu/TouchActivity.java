@@ -39,6 +39,8 @@ public class TouchActivity extends AppCompatActivity implements TouchFragment.Ex
             touchFragment = TouchFragment.newInstance(this);
             fittsFragment = FittsFragment.newInstance(this);
         }
+
+        fittsWriter.writeFitts(System.currentTimeMillis());
         sm = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
         sw = new SensorWriter(pID, sm);
 
@@ -48,6 +50,7 @@ public class TouchActivity extends AppCompatActivity implements TouchFragment.Ex
 
 
     private void displayTouchFragment() {
+        hideSystemUI();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         if (touchFragment.isAdded()) {
             ft.show(touchFragment);
@@ -62,6 +65,7 @@ public class TouchActivity extends AppCompatActivity implements TouchFragment.Ex
     }
 
     private void displayFittsFragment() {
+        hideSystemUI();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         if (fittsFragment.isAdded()) {
             ft.show(fittsFragment);
@@ -115,7 +119,7 @@ public class TouchActivity extends AppCompatActivity implements TouchFragment.Ex
     private void hideSystemUI() {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_IMMERSIVE
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                         | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN

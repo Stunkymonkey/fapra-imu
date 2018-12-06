@@ -17,19 +17,22 @@ public class SensorWriter {
     private final Sensor magnetometer;
     private final Sensor gravity;
     private final Sensor rotation;
-
     private final Writer accWriter;
     private final Writer gyroWriter;
     private final Writer oriWriter;
     private final Writer magnetoWriter;
     private final Writer gravWriter;
     private final Writer rotWriter;
-
+    SensorManager sensorManager;
+    private boolean[] sensorReady = new boolean[6];
     public SensorEventListener AccLinListener = new SensorEventListener() {
         public void onAccuracyChanged(Sensor sensor, int acc) {
         }
 
         public void onSensorChanged(SensorEvent event) {
+            if (!sensorReady[0]) {
+                sensorReady[0] = true;
+            }
             accWriter.writeSensor(System.currentTimeMillis(), event.values[0], event.values[1], event.values[2]);
             // Log.d(TAG, event.sensor.getName() + System.currentTimeMillis() + ": \t\tX: " + event.values[0] + ";\t\tY: " + event.values[1] + ";\t\tZ: " + event.values[2]);
         }
@@ -39,6 +42,9 @@ public class SensorWriter {
         }
 
         public void onSensorChanged(SensorEvent event) {
+            if (!sensorReady[1]) {
+                sensorReady[1] = true;
+            }
             gyroWriter.writeSensor(System.currentTimeMillis(), event.values[0], event.values[1], event.values[2]);
             // Log.d(TAG, event.sensor.getName() + System.currentTimeMillis() + ": \t\tX: " + event.values[0] + ";\t\tY: " + event.values[1] + ";\t\tZ: " + event.values[2]);
         }
@@ -48,6 +54,9 @@ public class SensorWriter {
         }
 
         public void onSensorChanged(SensorEvent event) {
+            if (!sensorReady[2]) {
+                sensorReady[2] = true;
+            }
             magnetoWriter.writeSensor(System.currentTimeMillis(), event.values[0], event.values[1], event.values[2]);
             // Log.d(TAG, event.sensor.getName() + System.currentTimeMillis() + ": \t\tX: " + event.values[0] + ";\t\tY: " + event.values[1] + ";\t\tZ: " + event.values[2]);
         }
@@ -57,6 +66,9 @@ public class SensorWriter {
         }
 
         public void onSensorChanged(SensorEvent event) {
+            if (!sensorReady[3]) {
+                sensorReady[3] = true;
+            }
             gravWriter.writeSensor(System.currentTimeMillis(), event.values[0], event.values[1], event.values[2]);
             // Log.d(TAG, event.sensor.getName() + System.currentTimeMillis() + ": \t\tX: " + event.values[0] + ";\t\tY: " + event.values[1] + ";\t\tZ: " + event.values[2]);
         }
@@ -66,6 +78,9 @@ public class SensorWriter {
         }
 
         public void onSensorChanged(SensorEvent event) {
+            if (!sensorReady[4]) {
+                sensorReady[4] = true;
+            }
             rotWriter.writeSensor(System.currentTimeMillis(), event.values[0], event.values[1], event.values[2]);
             // Log.d(TAG, event.sensor.getName() + System.currentTimeMillis() + ": \t\tX: " + event.values[0] + ";\t\tY: " + event.values[1] + ";\t\tZ: " + event.values[2]);
         }
@@ -78,6 +93,9 @@ public class SensorWriter {
         }
 
         public void onSensorChanged(SensorEvent event) {
+            if (!sensorReady[5]) {
+                sensorReady[5] = true;
+            }
             if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
                 mGravity = event.values;
             if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
@@ -95,9 +113,6 @@ public class SensorWriter {
             }
         }
     };
-
-
-    SensorManager sensorManager;
 
     public SensorWriter(int pID, SensorManager sensorManager) {
         String model_name = Constants.getNameForModel();
@@ -121,6 +136,7 @@ public class SensorWriter {
         accelerometer_lin = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
         gravity = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
         rotation = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        onResume();
     }
 
     public void onResume() {
@@ -134,11 +150,22 @@ public class SensorWriter {
     }
 
     public void onStop() {
+        accWriter.flush();
+        gyroWriter.flush();
+        oriWriter.flush();
+        magnetoWriter.flush();
+        gravWriter.flush();
+        rotWriter.flush();
         sensorManager.unregisterListener(AccLinListener);
         sensorManager.unregisterListener(GyroListener);
         sensorManager.unregisterListener(OriListener);
         sensorManager.unregisterListener(MagnetoListener);
         sensorManager.unregisterListener(GravListener);
         sensorManager.unregisterListener(RotListener);
+    }
+
+    public boolean allSensorsactive() {
+        for (boolean b : sensorReady) if (!b) return false;
+        return true;
     }
 }

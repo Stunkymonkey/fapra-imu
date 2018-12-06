@@ -90,12 +90,17 @@ public class FittsFragment extends Fragment {
             }
         });
 
+        float widht_var = 0.05f;
+        if (Constants.getNameForModel().equals("N6")) {
+            widht_var = 0.2f;
+        }
+
         if (new Random().nextBoolean()) {
-            moveView(tile, (int) (Constants.getScreenWidth() * 0.05), (int) (Constants.getScreenHeight() * 0.66));
+            moveView(tile, (int) (Constants.getScreenWidth() * widht_var), (int) (Constants.getScreenHeight() * 0.66));
             moveView(target, (int) (Constants.getScreenWidth() * 0.70), (int) (Constants.getScreenHeight() * 0.66));
         } else {
             moveView(tile, (int) (Constants.getScreenWidth() * 0.70), (int) (Constants.getScreenHeight() * 0.66));
-            moveView(target, (int) (Constants.getScreenWidth() * 0.05), (int) (Constants.getScreenHeight() * 0.66));
+            moveView(target, (int) (Constants.getScreenWidth() * widht_var), (int) (Constants.getScreenHeight() * 0.66));
         }
 
         tile.setOnTouchListener(new View.OnTouchListener() {

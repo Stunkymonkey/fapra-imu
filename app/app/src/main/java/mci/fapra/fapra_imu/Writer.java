@@ -30,19 +30,23 @@ public class Writer {
         if (isSensor) {
             header = "time;x;y;z\n";
         } else {
-            header = "time;x-press;y-press;x-circle;y-circle\n";
+            if (isFitts) {
+                header = "time\n";
+            } else {
+                header = "time;x-press;y-press;x-circle;y-circle\n";
+            }
         }
 
-        if (isFitts) {
-            header = "time\n";
+        int buffersize = 8 * 1024;
+        if (!isSensor) {
+            buffersize = 1024;
         }
 
         Log.i(TAG, "Opening File");
         try {
             FileWriter tmp = new FileWriter(file, false);
-            writer = new BufferedWriter(tmp, 1000);
+            writer = new BufferedWriter(tmp, buffersize);
             writer.append(header);
-            writer.flush();
         } catch (IOException e) {
             Log.e(TAG, "Error Opening/Writing Path", e);
         }
@@ -62,7 +66,6 @@ public class Writer {
 
         try {
             writer.append(line);
-            writer.flush();
         } catch (IOException e) {
             Log.e(TAG, "Error writing sensor", e);
         }
@@ -83,7 +86,6 @@ public class Writer {
 
         try {
             writer.append(line);
-            writer.flush();
         } catch (IOException e) {
             Log.e(TAG, "Error writing action", e);
         }
@@ -96,9 +98,17 @@ public class Writer {
         }
         try {
             writer.append(time + "\n");
-            writer.flush();
         } catch (IOException e) {
             Log.e(TAG, "Error writing fitts", e);
+        }
+    }
+
+    public void flush() {
+        Log.i(TAG, "Flush File");
+        try {
+            writer.flush();
+        } catch (IOException e) {
+            Log.e(TAG, "Error Flush File", e);
         }
     }
 

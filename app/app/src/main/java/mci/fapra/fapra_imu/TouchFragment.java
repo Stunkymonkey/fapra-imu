@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -65,7 +64,7 @@ public class TouchFragment extends Fragment {
     @Override
     public void onViewCreated(View v, Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
-        
+
         touchText = v.findViewById(R.id.touch_text);
         if (iteration > 1) {
             touchText.setVisibility(View.GONE);

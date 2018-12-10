@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -35,19 +36,35 @@ public class TouchActivity extends AppCompatActivity implements TouchFragment.Ex
         touchWriter = new Writer("fapra_imu-" + pID + "-points-" + Constants.getNameForModel(), false, false);
         fittsWriter = new Writer("fapra_imu-" + pID + "-fitts-" + Constants.getNameForModel(), false, true);
 
+        sm = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
+        sw = new SensorWriter(pID, sm);
+
         if (savedInstanceState == null) {
             touchFragment = TouchFragment.newInstance(this);
             fittsFragment = FittsFragment.newInstance(this);
         }
-        sm = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
-        sw = new SensorWriter(pID, sm);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (!sw.allSensorsactive()) {
+                    try {
+                        Thread.sleep(50);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Log.d(TAG, "WAITING");
+                }
+                fittsWriter.writeFitts(System.currentTimeMillis());
+                displayTouchFragment();
+            }
+        }).start();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        displayTouchFragment();
     }
 
-
     private void displayTouchFragment() {
+        hideSystemUI();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         if (touchFragment.isAdded()) {
             ft.show(touchFragment);
@@ -62,6 +79,7 @@ public class TouchActivity extends AppCompatActivity implements TouchFragment.Ex
     }
 
     private void displayFittsFragment() {
+        hideSystemUI();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         if (fittsFragment.isAdded()) {
             ft.show(fittsFragment);
@@ -115,7 +133,7 @@ public class TouchActivity extends AppCompatActivity implements TouchFragment.Ex
     private void hideSystemUI() {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_IMMERSIVE
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                         | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN

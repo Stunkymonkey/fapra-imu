@@ -96,7 +96,7 @@ Abstracts should be about 150 words. Required. See: \url{https://users.ece.cmu.e
 \maketitle
 
 \section{Introduction}
-
+\graphicspath{{./pictures/}}
 
 \input{./related-work.tex}
 \input{./study.tex}
@@ -105,54 +105,54 @@ Abstracts should be about 150 words. Required. See: \url{https://users.ece.cmu.e
 \input{./conclusion.tex}
 
 
-\begin{sidebar}
-  \textbf{Good Utilization of the Side Bar}
-
-  \textbf{Preparation:} Do not change the margin
-  dimensions and do not flow the margin text to the
-  next page.
-
-  \textbf{Materials:} The margin box must not intrude
-  or overflow into the header or the footer, or the gutter space
-  between the margin paragraph and the main left column.
-
-  \textbf{Images \& Figures:} Practically anything
-  can be put in the margin if it fits. Use the
-  \texttt{{\textbackslash}marginparwidth} constant to set the
-  width of the figure, table, minipage, or whatever you are trying
-  to fit in this skinny space.
-
-  \caption{This is the optional caption}
-  \label{bar:sidebar}
-\end{sidebar}
-
-
-
-\begin{marginfigure}
-    %\includegraphics[width=\marginparwidth]{cats}
-    \caption{In this image, the cats are tessellated within a square
-      frame. Images should also have captions and be within the
-      boundaries of the sidebar on page~\pageref{bar:sidebar}. Photo:
-      \cczero~jofish on Flickr.}
-    \label{fig:marginfig}
-\end{marginfigure}
-
-\begin{margintable}
-    \caption{A simple narrow table in the left margin
-      space.}
-    \label{tab:table2}
-    \begin{tabular}{r r l}
-      & {\small \textbf{First}}
-      & {\small \textbf{Location}} \\
-      \toprule
-      Child & 22.5 & Melbourne \\
-      Adult & 22.0 & Bogot\'a \\
-      \midrule
-      Gene & 22.0 & Palo Alto \\
-      John & 34.5 & Minneapolis \\
-      \bottomrule
-    \end{tabular}
-\end{margintable}
+% \begin{sidebar}
+%  \textbf{Good Utilization of the Side Bar}
+%
+%  \textbf{Preparation:} Do not change the margin
+%  dimensions and do not flow the margin text to the
+%  next page.
+%
+%  \textbf{Materials:} The margin box must not intrude
+%  or overflow into the header or the footer, or the gutter space
+%  between the margin paragraph and the main left column.
+%
+%  \textbf{Images \& Figures:} Practically anything
+%  can be put in the margin if it fits. Use the
+%  \texttt{{\textbackslash}marginparwidth} constant to set the
+%  width of the figure, table, minipage, or whatever you are trying
+%  to fit in this skinny space.
+%
+%  \caption{This is the optional caption}
+%  \label{bar:sidebar}
+%\end{sidebar}
+%
+%
+%
+%\begin{marginfigure}
+%    %\includegraphics[width=\marginparwidth]{cats}
+%    \caption{In this image, the cats are tessellated within a square
+%      frame. Images should also have captions and be within the
+%      boundaries of the sidebar on page~\pageref{bar:sidebar}. Photo:
+%      \cczero~jofish on Flickr.}
+%    \label{fig:marginfig}
+%\end{marginfigure}
+%
+%\begin{margintable}
+%    \caption{A simple narrow table in the left margin
+%      space.}
+%    \label{tab:table2}
+%    \begin{tabular}{r r l}
+%      & {\small \textbf{First}}
+%      & {\small \textbf{Location}} \\
+%      \toprule
+%      Child & 22.5 & Melbourne \\
+%      Adult & 22.0 & Bogot\'a \\
+%      \midrule
+%      Gene & 22.0 & Palo Alto \\
+%      John & 34.5 & Minneapolis \\
+%      \bottomrule
+%    \end{tabular}
+%\end{margintable}
 
 \bibliography{bibliography}
 \bibliographystyle{ACM-Reference-Format}

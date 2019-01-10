@@ -1,6 +1,9 @@
 data/
 raw.7z
 
+# android-models
+evalfapra/app/src/main/assets/
+
 # Built application files
 *.apk
 *.ap_

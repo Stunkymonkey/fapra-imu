@@ -1,4 +1,9 @@
 data/
+raw.7z
+result.json
+
+# android-models
+evalfapra/app/src/main/assets/
 
 # Built application files
 *.apk

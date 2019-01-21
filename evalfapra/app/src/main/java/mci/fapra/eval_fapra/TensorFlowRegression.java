@@ -11,14 +11,11 @@ public class TensorFlowRegression {
 
     private TensorFlowInferenceInterface inferenceInterface;
     private static final String MODEL_FILE = "file:///android_asset/testmodel_N5X.pb";
-    private static final String INPUT_NODE = "conv2d_1_input:0";
-    private static final String[] OUTPUT_NODES = {"dense_3:0"};
-    private static final String OUTPUT_NODE = "dense_3:0";
+    private static final String INPUT_NODE = "lstm_1_input:0";
+    private static final String[] OUTPUT_NODES = {"dense_1/BiasAdd:0"};
+    private static final String OUTPUT_NODE = "dense_1/BiasAdd:0";
 
-    private static final int N_CHANNELS = 1;
-    private static final int N_FEATURES = 3;
-    private static final int N_STEPS = 90;
-    private static final long[] INPUT_SIZE = {1, N_STEPS, N_FEATURES, N_CHANNELS};
+    private static final long[] INPUT_SIZE = {1, Constants.WINDOW_SIZE, Constants.SENSORS};
 
     private static final int OUTPUT_SIZE = 2;
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fitts_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FittsFragment">
+    <TextView
+        android:id="@+id/fitts_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/drag_the_red_square_into_the_red_dotted_square"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp" />
+    <ProgressBar
+        android:id="@+id/progress_rounds"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fitts_text"
+        android:layout_centerHorizontal="true"
+        android:progressTint="#33691e"/>
+    <ImageView
+        android:id="@+id/target"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:contentDescription="@string/target"
+        android:src="@drawable/dashed_rectangle" />
+    <ImageView
+        android:id="@+id/tile"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:contentDescription="@string/square"
+        android:src="@drawable/rectangle" />
+</RelativeLayout>

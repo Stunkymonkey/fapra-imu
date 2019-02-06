@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import static java.lang.Thread.sleep;
+import static mci.fapra.eval_fapra.Constants.getScreenHeight;
+import static mci.fapra.eval_fapra.Constants.getScreenWidth;
 
 public class RealScenarioActivity extends AppCompatActivity {
     private final String TAG = this.getClass().getSimpleName();
@@ -43,14 +45,16 @@ public class RealScenarioActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             float[] predictedPoints = pred.predict();
-            Log.w(TAG, "" + (int) predictedPoints[0] +  ","  + (int) predictedPoints[1]);
-            moveView(pointer, (int) predictedPoints[0], (int) predictedPoints[1]);
+            predictedPoints[0] *= getScreenWidth();
+            predictedPoints[1] *= getScreenHeight();
+            //Log.w(TAG, "" + (int) predictedPoints[0] +  ","  + (int) predictedPoints[1]);
+            moveView(pointer, predictedPoints[0], predictedPoints[1]);
         }
     }
 
-    private void moveView(View v, int x, int y) {
-        v.setX(x);
-        v.setY(y);
+    private void moveView(View v, float x, float y) {
+        v.setX((int) x);
+        v.setY((int) y);
     }
 
     @SuppressLint("InlinedApi")

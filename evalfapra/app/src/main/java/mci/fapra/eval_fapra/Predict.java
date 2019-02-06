@@ -33,10 +33,10 @@ public class Predict {
         }
         System.arraycopy(current, 0, data[data.length - 1], 0, current.length);
 
-        float[] tmp = new float[Constants.WINDOW_SIZE * Constants.SENSORS];
+        float[] tmp = new float[Constants.WINDOW_SIZE * 6];
         int counter = 0;
         for (int i = 0; i < Constants.WINDOW_SIZE; i++) {
-            for (int j = 0; j < Constants.SENSORS; j++) {
+            for (int j = 0; j < 6; j++) {
                 tmp[counter] = data[i][j];
                 counter ++;
             }

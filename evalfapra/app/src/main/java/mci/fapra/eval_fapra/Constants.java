@@ -4,7 +4,7 @@ import android.content.res.Resources;
 import android.os.Build;
 
 public class Constants {
-    public static final int WINDOW_SIZE = 25;
+    public static final int WINDOW_SIZE = 100;
     public static final int SENSORS = 18;
 
     public static final String m_androidId = Build.MODEL;

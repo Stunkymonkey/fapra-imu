@@ -1,6 +1,7 @@
 package mci.fapra.eval_fapra;
 
 import android.content.Context;
+import android.util.Log;
 
 import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
 
@@ -10,12 +11,12 @@ public class TensorFlowRegression {
     }
 
     private TensorFlowInferenceInterface inferenceInterface;
-    private static final String MODEL_FILE = "file:///android_asset/testmodel_N5X.pb";
-    private static final String INPUT_NODE = "lstm_1_input:0";
-    private static final String[] OUTPUT_NODES = {"dense_1/BiasAdd:0"};
-    private static final String OUTPUT_NODE = "dense_1/BiasAdd:0";
+    private static final String MODEL_FILE = "file:///android_asset/general_model.pb";
+    private static final String INPUT_NODE = "conv2d_2_input:0";
+    private static final String[] OUTPUT_NODES = {"output_node0"};
+    private static final String OUTPUT_NODE = "output_node0";
 
-    private static final long[] INPUT_SIZE = {1, Constants.WINDOW_SIZE, Constants.SENSORS};
+    private static final long[] INPUT_SIZE = {1, Constants.WINDOW_SIZE, 6, 1};
 
     private static final int OUTPUT_SIZE = 2;
 

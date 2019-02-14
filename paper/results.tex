@@ -1,12 +1,73 @@
 \section{Results}
+\begin{margintable}
+%	\vspace{-5cm}
+	\centering
+	\begin{tabularx}{1\marginparwidth}{Xd{2.1}d{2.1}d{1.1}d{1.1}}
+		\toprule
+		&
+		\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{S3M} \\ \textbf{0ms}}}}&    
+		\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{S4}\\ \textbf{0ms}}}} &
+		\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{N5X}\\ \textbf{0ms}}}} &
+		\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{N6}\\ \textbf{0ms}}}} \\
+		\\
+		\midrule
+		%                	 Touch  33ms  66ms  
+		RF & 28.11 & 34.76 &36.38 & 41.4 \\ \cmidrule{1-5}
+		DT & 28.81 & 35.58 &37.03 & 42.56 \\ \cmidrule{1-5}
+		KNN& 28.67 & 34.61 &36.36 & 42.91 \\ \cmidrule{1-5}
+		GP & 53.35 & 66.83 &69.53 & 79.06 \\ \midrule
+		
+		%		\multicolumn{1}{l}{\multirow{2}{*}{\shortstack[c]{\textbf{Regressor}}}}&
+		&\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{S3M} \\ \textbf{33ms}}}}&    
+		\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{S4}\\ \textbf{33ms}}}} &
+		\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{N5X}\\ \textbf{33ms}}}} &
+		\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{N6}\\ \textbf{33ms}}}} \\
+		\\
+		\midrule
+		%                	 Touch  33ms  66ms  
+		%                	 Touch  33ms  66ms  
+		RF & 27.91 & 34.29  & 36.05  & 40.45 \\ \cmidrule{1-5}
+		DT & 28.39 & 35.1   & 35.03  & 41.52 \\ \cmidrule{1-5}
+		KNN& 28.41 & 34.31  & 35.92  & 42.13 \\ \cmidrule{1-5}
+		GP & 52.89 & 66.82  & 69.52  & 79.05 \\ 
+		\midrule
+		%		\multicolumn{1}{l}{\multirow{2}{*}{\shortstack[c]{\textbf{Regressor}}}}&
+		&\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{S3M}  \\ \textbf{66ms}}}}&    
+		\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{S4} \\ \textbf{66ms}}}} &
+		\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{N5X} \\ \textbf{66ms}}}} &
+		\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{N6} \\ \textbf{66ms}}}}\\
+		\\
+		\midrule
+		%                	 Touch  33ms  66ms  
+		RF &27.54 & 33.58  & 35.24  & 40.18 \\ \cmidrule{1-5}
+		DT &27.9  & 32.74  & 34.67  & 39.54 \\ \cmidrule{1-5}
+		KNN&28.1  & 33.99  & 35.93  & 41.62 \\ \cmidrule{1-5}
+		GP &44.65 & 64.83  & 67.88  & 76.18 \\ 
+		\bottomrule
+	\end{tabularx}%
+	\caption[Baseline data]{\small Average euclidean distances (mm) for baseline regressors from scikit-learn\protect\footnotemark.}
+	\label{tab:baseline}
+\end{margintable}
+\footnotetext{\url{https://scikit-learn.org/stable/supervised\_learning.html\#supervised-learning}}
 
 
-\begin{sidebar}
-	\caption*{Preprocessing - either sidebar, or subsection}
-	
-	We recorded a total of X minutes of sensor data from the \textit{touch} and \textit{Fitt's Law task} task. Since we are only interested in sensor changes during the process of reaching for a target and touching it and the purpose of the \textit{Fitt's Law task} was only for reseting the participants grip to the lower half of the phone our first step in our preprocessing pipeline was \texttt{cutting} out the sensor fragments of the \textit{Fitt's Law task}.
-	\label{sec:prepro}
-\end{sidebar}
+
+
+
+\subsection{Data Set \& Preprocessing}
+\label{sec:prepro}
+We recorded a total of X minutes of sensor data from the \textit{touch} and \textit{Fitt's Law task} task. 
+%Since we are only interested in sensor changes during the process of reaching for a target and touching it and the purpose of the \textit{Fitt's Law task} was only for reseting the participants grip to the lower half of the phone our first step in our preprocessing pipeline was \texttt{cutting} out the sensor fragments of the \textit{Fitt's Law task}.
+Due to the high sampling rate of the sensors we first removed occurring duplicates by keeping the last sensor value and timestamp.
+We then up-sampled the sensors to 333.33 Hz, resulting in 1 sample given every 3ms. 
+Finally, we saved 100 samples before each touch resulting in a total of 3.456.000 samples.
+
+Up-sampling the sensors to 1 sample every 3ms resulted in a discontinuous function for each sensor axis. 
+We have therefore tried applying several smoothing procedures.
+
+
+\footnote{\url{https://05.jupyter.interactionlab.io/user/beneste/tree/fapra-imu}}
+
 
 Report about your model. No source code!
 

@@ -56,7 +56,7 @@
 
 \subsection{Data Set \& Preprocessing}
 \label{sec:prepro}
-We recorded a total of X minutes of sensor data from the \textit{touch} and \textit{Fitt's Law task} task. 
+We recorded a total of 1079 minutes of sensor data from the \textit{touch} and \textit{Fitt's Law task} task. 
 %Since we are only interested in sensor changes during the process of reaching for a target and touching it and the purpose of the \textit{Fitt's Law task} was only for reseting the participants grip to the lower half of the phone our first step in our preprocessing pipeline was \texttt{cutting} out the sensor fragments of the \textit{Fitt's Law task}.
 Due to the high sampling rate of the sensors we first removed occurring duplicates by keeping the last sensor value and timestamp.
 We then up-sampled the sensors to 333.33 Hz, resulting in 1 sample given every 3ms. 

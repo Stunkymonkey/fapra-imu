@@ -56,6 +56,7 @@
 
 \subsection{Data Set \& Preprocessing}
 \label{sec:prepro}
+Look at \cref{tab:baseline}
 We recorded a total of 1079 minutes of sensor data from the \textit{touch} and \textit{Fitt's Law task} task. 
 %Since we are only interested in sensor changes during the process of reaching for a target and touching it and the purpose of the \textit{Fitt's Law task} was only for reseting the participants grip to the lower half of the phone our first step in our preprocessing pipeline was \texttt{cutting} out the sensor fragments of the \textit{Fitt's Law task}.
 Due to the high sampling rate of the sensors we first removed occurring duplicates by keeping the last sensor value and timestamp.
@@ -65,10 +66,12 @@ Finally, we saved 100 samples before each touch resulting in a total of 3.456.00
 Up-sampling the sensors to 1 sample every 3ms resulted in a discontinuous function for each sensor axis. 
 We have therefore tried applying several smoothing procedures.
 
+\subsection{Neural Network Structure}
+
 
 \footnote{\url{https://05.jupyter.interactionlab.io/user/beneste/tree/fapra-imu}}
 
 
-Report about your model. No source code!
-
-Report about the validation dataset / validation study. 
+%Report about your model. No source code!
+%
+%Report about the validation dataset / validation study. 

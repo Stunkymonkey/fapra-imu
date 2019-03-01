@@ -1,2 +1,13 @@
 \section{Conclusion}
-Two sentences wrap up what you have done. Than report what you achieved. 
+In this work we have investigated the feasibility touch prediction with built-in IMU. 
+We conducted a study where we recorded a series of touches participants had to perform and meanwhile sampled the phones' internal sensors which were later on fed into a neural network which enabled us to predict touches that lied up to 66ms in the future.
+
+We have showed that it is possible to predict future touches on smartphones with built-in sensors only  and the help of neural networks.
+The accuracy of our approach does not yet reach the accuracy of more related work. \citeauthor{MohdNoor2016} \cite{MohdNoor2016} could predict 200ms with an accuracy of 18mm into the future, whereas for our general model we achieve an accuracy of 18.05mm for predicting 66ms into the future with increasing errors the further we predict away from touches.
+However, these results could be improved by enhancing the dataset with touches specifically aiming for predicting hand movements and subsequent touches on smartphones.
+
+Touch events on smartphones are only single snapshots of a long concatenation of grasping the phone and movement of the fingers of phones. 
+The genesis of these motions however comes much earlier and can be predicted when observing the movements and rotations of the hand.
+This offers an efficient way to enhance future interaction on smartphones and should be taken into consideration by researchers and developers.
+
+%Two sentences wrap up what you have done. Than report what you achieved. 

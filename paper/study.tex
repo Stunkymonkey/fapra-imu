@@ -1,103 +1,55 @@
 \section{Data Collection Study}
 
+\begin{margintable}
+	\vspace{-4.73cm}
+	\centering
+	\begin{tabularx}{1\marginparwidth}{XXd{2.2}d{2.2}d{2.2}}
+		
+		\toprule
+		
+		\textbf{Model}&\textbf{Phone}&\multicolumn{1}{c}{\textbf{0ms}}&\multicolumn{1}{c}{\textbf{33ms}}&\multicolumn{1}{c}{\textbf{66ms}} \\
+		\midrule
+		
+		\multirow{8}{*}{\textsc{single}}   &\multirow{2}{*}{\textbf{S3}}  &12.50&13.17&14.40       \\
+		&                              &(7.36)&(7.82)&(8.24)       \\
+		\cmidrule(r){2-5}		
+		&\multirow{2}{*}{\textbf{S4}}  &17.25&18.77&19.41       \\
+		&                              &(9.94)&(10.76)&(10.78)       \\
+		\cmidrule(r){2-5}						 				   
+		&\multirow{2}{*}{\textbf{N5X}} &17.01&18.09&19.96       \\
+		&                              &(9.76)&(10.39)&(10.93)       \\
+		\cmidrule(r){2-5}										   
+		&\multirow{2}{*}{\textbf{N6}}  &18.87&19.78&21.52       \\
+		&                              &(11.4)&(12.15)&(12.7)       \\	
+		
+		\midrule
+		
+		\multirow{8}{*}{\textsc{general}} &\multirow{2}{*}{\textbf{S3}}   &12.95&13.48&14.52        \\
+		&                               &(7.57)&(7.92)&(8.38)        \\ 
+		\cmidrule(r){2-5}
+		&\multirow{2}{*}{\textbf{S4}}   &16.79&17.69&18.70        \\
+		&                               &(10.61)&(10.99)&(11.21)        \\
+		\cmidrule(r){2-5}
+		&\multirow{2}{*}{\textbf{N5X}}  &17.39&18.02&19.46	        \\
+		&                               &(10.61)&(10.88)&(11.60)        \\
+		\cmidrule(r){2-5}									      
+		&\multirow{2}{*}{\textbf{N6}}   &17.53&17.75&19.53        \\ 
+		&                               &(11.59)&(11.94)&(12.72)       \\									         		
+		\bottomrule    
+	\end{tabularx}%
+	\caption[Model results]{\small Average test euclidean distances (mm) and standard deviations (brackets) for single and general models for all configurations.}
+	\label{tab:results}
+\end{margintable}
+
 We conducted a data collection study to gather IMU data while performing touches on a smartphone.
 Our collected data set consists of 6 smartphone sensors that were sampled while participants performed successive touches on the smartphones front side. 
 For our data collection study we used a repeated-measures design with one independent variable: \textsc{phone}, which was counterbalanced using Latin Balanced squares. 
 The total amount of conditions was: \textsc{phone} $ = 4$.
 
 \subsection{Apparatus}
-\begin{margintable}
-	\vspace{-3.9cm}
-	\centering
-	\begin{tabularx}{1.03\marginparwidth}{Xd{2.1}d{2.1}d{1.1}}
-		\toprule
-		\multicolumn{1}{l}{\multirow{3}{*}{\shortstack[c]{\textbf{Device}}}}&
-		\multicolumn{1}{c}{\multirow{3}{*}{\shortstack[c]{\textbf{Release}}}}&    
-		\multicolumn{1}{c}{\multirow{3}{*}{\shortstack[c]{\textbf{Weight}\\ \textbf{(g)}}}} &
-		\multicolumn{1}{c}{\multirow{3}{*}{\shortstack[c]{\textbf{Screen}\\ \textbf{Diagonal}\\ \textbf{(in)}}}} \\
-		\\
-		\\
-		\midrule
-		%                year   weight diag  
-		S3 Mini  		& 2012 & 113 &  4. \\
-		S4 				& 2013 & 130 &5.   \\
-		Nexus 5X 		& 2015 & 136 &5.2  \\
-		Nexus 6 		& 2014 & 184 & 6.  \\ 
-		
-		
-		\bottomrule
-		
-		%	\multicolumn{1}{l}{\multirow{3}{*}{\shortstack[c]{\textbf{Device}}}}&
-		&\multicolumn{1}{c}{\multirow{3}{*}{\shortstack[c]{\textbf{Height}\\ \textbf{(cm)}}}} &
-		\multicolumn{1}{c}{\multirow{3}{*}{\shortstack[c]{\textbf{Width}\\ \textbf{(cm)}}}} &
-		\multicolumn{1}{c}{\multirow{3}{*}{\shortstack[c]{\textbf{Depth}}}} \\ 
-		\\
-		\\
-		\midrule
-		%		          height  width  depth
-		S3 Mini  		& 12.16 & 6.3  & 0.99 \\
-		S4 				& 13.7  & 7.0  & 0.79 \\
-		Nexus 5X 		& 14.7  & 7.26 & 0.79 \\
-		Nexus 6 		& 15.93 & 8.3  & 1.01 \\
-		
-		\bottomrule
-	\end{tabularx}%
-	\caption[Smartphone data]{\small Data about the smartphones that were used in the study.}
-	\label{tab:devices}
-\end{margintable}
-\begin{margintable}
-	%	\vspace{-5cm}
-	\centering
-	\begin{tabularx}{1\marginparwidth}{Xd{2.1}d{2.1}d{1.1}d{1.1}}
-		\toprule
-		&
-		\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{S3M} \\ \textbf{0ms}}}}&    
-		\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{S4}\\ \textbf{0ms}}}} &
-		\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{N5X}\\ \textbf{0ms}}}} &
-		\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{N6}\\ \textbf{0ms}}}} \\
-		\\
-		\midrule
-		%                	 Touch  33ms  66ms  
-		RF & 28.11 & 34.76 &36.38 & 41.4 \\ \cmidrule{1-5}
-		DT & 28.81 & 35.58 &37.03 & 42.56 \\ \cmidrule{1-5}
-		KNN& 28.67 & 34.61 &36.36 & 42.91 \\ \cmidrule{1-5}
-		GP & 53.35 & 66.83 &69.53 & 79.06 \\ \midrule
-		
-		%		\multicolumn{1}{l}{\multirow{2}{*}{\shortstack[c]{\textbf{Regressor}}}}&
-		&\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{S3M} \\ \textbf{33ms}}}}&    
-		\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{S4}\\ \textbf{33ms}}}} &
-		\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{N5X}\\ \textbf{33ms}}}} &
-		\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{N6}\\ \textbf{33ms}}}} \\
-		\\
-		\midrule
-		%                	 Touch  33ms  66ms  
-		%                	 Touch  33ms  66ms  
-		RF & 27.91 & 34.29  & 36.05  & 40.45 \\ \cmidrule{1-5}
-		DT & 28.39 & 35.1   & 35.03  & 41.52 \\ \cmidrule{1-5}
-		KNN& 28.41 & 34.31  & 35.92  & 42.13 \\ \cmidrule{1-5}
-		GP & 52.89 & 66.82  & 69.52  & 79.05 \\ 
-		\midrule
-		%		\multicolumn{1}{l}{\multirow{2}{*}{\shortstack[c]{\textbf{Regressor}}}}&
-		&\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{S3M}  \\ \textbf{66ms}}}}&    
-		\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{S4} \\ \textbf{66ms}}}} &
-		\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{N5X} \\ \textbf{66ms}}}} &
-		\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{N6} \\ \textbf{66ms}}}}\\
-		\\
-		\midrule
-		%                	 Touch  33ms  66ms  
-		RF &27.54 & 33.58  & 35.24  & 40.18 \\ \cmidrule{1-5}
-		DT &27.9  & 32.74  & 34.67  & 39.54 \\ \cmidrule{1-5}
-		KNN&28.1  & 33.99  & 35.93  & 41.62 \\ \cmidrule{1-5}
-		GP &44.65 & 64.83  & 67.88  & 76.18 \\ 
-		\bottomrule
-	\end{tabularx}%
-	\caption[Baseline data]{\small Average euclidean distances (mm) for baseline regressors.}
-	\label{tab:baseline}
-\end{margintable}
-
 Our dataset was generated using four different sized smartphones on which participants had to perform a certain amount of touches (for further information see \cref{sec:tasks}).
 The phones we used were a Samsung S3 Mini, a Samsung S4, a Google Nexus 5X, and a Motorola Nexus 6.
-For more technical details about the used devices see \cref{tab:devices}.
+For more details about the devices used in the study see \cref{tab:devices}.
 Our used phone sizes range from $ 4^{\prime\prime} $ (S3) to $ 6^{\prime\prime} $ (N6). 
 Using phones of these sizes we were able to cover the sizes of everyday smartphones, including some high-end devices and create a generalizable machine-learning model.
 

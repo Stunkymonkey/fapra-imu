@@ -1,9 +1,44 @@
 \section{Results}
-\begin{marginfigure}
-	\includegraphics[width=1\marginparwidth]{imu-cnn-korrekt}
-	\caption[Model architecture]{Model architecture of the neural network of general models for predicting touches based on phones' IMU.}
-	\label{fig:model_architecture}
-\end{marginfigure}
+\begin{margintable}
+	\vspace{-4.3cm}
+	\centering
+	\begin{tabularx}{1\marginparwidth}{XXd{2.2}d{2.2}d{2.2}}
+		
+		\toprule
+		
+		\textbf{Model}&\textbf{Phone}&\multicolumn{1}{c}{\textbf{0ms}}&\multicolumn{1}{c}{\textbf{33ms}}&\multicolumn{1}{c}{\textbf{66ms}} \\
+		\midrule
+		
+		\multirow{8}{*}{\textsc{single}}   &\multirow{2}{*}{\textbf{S3}}  &12.50&13.17&14.40       \\
+		&                              &(7.36)&(7.82)&(8.24)       \\
+		\cmidrule(r){2-5}		
+		&\multirow{2}{*}{\textbf{S4}}  &17.25&18.77&19.41       \\
+		&                              &(9.94)&(10.76)&(10.78)       \\
+		\cmidrule(r){2-5}						 				   
+		&\multirow{2}{*}{\textbf{N5X}} &17.01&18.09&19.96       \\
+		&                              &(9.76)&(10.39)&(10.93)       \\
+		\cmidrule(r){2-5}										   
+		&\multirow{2}{*}{\textbf{N6}}  &18.87&19.78&21.52       \\
+		&                              &(11.4)&(12.15)&(12.7)       \\	
+		
+		\midrule
+		
+		\multirow{8}{*}{\textsc{general}} &\multirow{2}{*}{\textbf{S3}}   &12.95&13.48&14.52        \\
+		&                               &(7.57)&(7.92)&(8.38)        \\ 
+		\cmidrule(r){2-5}
+		&\multirow{2}{*}{\textbf{S4}}   &16.79&17.69&18.70        \\
+		&                               &(10.61)&(10.99)&(11.21)        \\
+		\cmidrule(r){2-5}
+		&\multirow{2}{*}{\textbf{N5X}}  &17.39&18.02&19.46	        \\
+		&                               &(10.61)&(10.88)&(11.60)        \\
+		\cmidrule(r){2-5}									      
+		&\multirow{2}{*}{\textbf{N6}}   &17.53&17.75&19.53        \\ 
+		&                               &(11.59)&(11.94)&(12.72)       \\									         		
+		\bottomrule    
+	\end{tabularx}%
+	\caption[Model results]{\small Average test euclidean distances (mm) and standard deviations (brackets) for single and general models for all configurations.}
+	\label{tab:results}
+\end{margintable}
 \subsection{Data Set \& Preprocessing}
 \label{sec:prepro}
 
@@ -19,7 +54,7 @@ After testing we only kept the accelerometer and the gyroscope, as using all sen
 
 Up-sampling the sensors to 1 sample every 3ms resulted in a discontinuous function for each sensor axis. 
 We have therefore tried applying several smoothing procedures, including a Butterworth lowpass-filter and a moving average filter.
-Both approaches, however, did not lead to an increase in accuracy, so we have adhered to the unsmoothed data of the sensors.
+Both approaches, however, did not lead to an increase in accuracy, so we kept the unsmoothed data of the sensors.
 
 \subsection{Baseline}
 We explored basic regressors from scikit-learn \footnote{\url{https://scikit-learn.org/stable/supervised\_learning.html\#supervised-learning}} as a baseline to test whether using novel machine learning techniques is sufficient for touch prediction with IMU.
@@ -74,7 +109,7 @@ The average euclidean distances for both the single and the general model can be
 \cref{fig:boxplots_general} visualizes the errors of the general model grouped by phones for each prediction time.
 \todo{Maybe noch ein origin plot wenn platz}
 For \cref{fig:ell_single} and \cref{fig:ell_general} we have shifted each prediction with its corresponding true point by the distance from the true point to the origin, thus resulting in a heatmap around the origin representing the scattering of the prediction points.
-For each phone and each prediction time we have fitted an elliptic envelope with a contamination of .0261 inside the heatmap.
+For each phone and each prediction time we have fitted an elliptic envelope with a contamination parameter of .0261 inside the heatmap.
 Elliptic envelopes are used for outlier filtering; the higher to contamination the more aggressive the ellipse is fitted against outliers.
 For each ellipse of single and general models we calculated the area in $ mm^{2}$.
 The areas are listed in \cref{tab:areas}.

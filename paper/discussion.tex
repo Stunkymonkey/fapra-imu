@@ -1,34 +1,16 @@
 \section{Discussion}
-\begin{margintable}
-	\vspace{-9.7cm}
+\begin{marginfigure}
+	\vspace{-8cm}	
 	\centering
-	\begin{tabularx}{1\marginparwidth}{XXd{4.2}d{4.2}d{4.2}}
-		
-		\toprule
-		
-		&\textbf{Model}&\multicolumn{1}{c}{\textbf{0ms}}&\multicolumn{1}{c}{\textbf{33ms}}&\multicolumn{1}{c}{\textbf{66ms}} \\
-		\midrule
-		
-		\multirow{2}{*}{\textsc{S3}}   &\multirow{1}{*}{\textbf{S}}  &\cellcolor{green!25}766.92 & \cellcolor{green!25}864.35&1049.42       \\
-		\cmidrule{2-5}
-									   &\multirow{1}{*}{\textbf{G}} &778.93&869.17&\cellcolor{green!25}1002.76     \\
-		\midrule		
-		\multirow{2}{*}{\textsc{S4}}   &\multirow{1}{*}{\textbf{S}}  &\cellcolor{green!25}1354.96&1588.03&1733.1       \\
-		\cmidrule{2-5}
-									   &\multirow{1}{*}{\textbf{G}} &1376.14&\cellcolor{green!25}1482.92&\cellcolor{green!25}1656.89     \\
-		\midrule
-		\multirow{2}{*}{\textsc{N5X}}  &\multirow{1}{*}{\textbf{S}}  &\cellcolor{green!25}1413.76&1612.83&1972.12       \\
-		\cmidrule{2-5}
-									   &\multirow{1}{*}{\textbf{G}} &1477.92&\cellcolor{green!25}1573.48&\cellcolor{green!25}1871.57     \\
-		\midrule
-		\multirow{2}{*}{\textsc{N6}}   &\multirow{1}{*}{\textbf{S}}  &1661.86&1814.29&2176.2       \\
-		\cmidrule{2-5}
-									   &\multirow{1}{*}{\textbf{G}}&\cellcolor{green!25}1462.5&\cellcolor{green!25}1479.93&\cellcolor{green!25}1826.55\\							         		
-		\bottomrule    
-	\end{tabularx}%
-	\caption[Ellipse areas]{\small Ellipse areas ($ mm^{2} $) from single models seen in \cref{fig:ell_single} and from general models seen in \cref{fig:ell_general}.}
-	\label{tab:areas}
-\end{margintable}
+	\includegraphics[height=\linewidth]{ellipses_single}
+	\caption{Elliptic envelope plot for single models.\newline}
+	\label{fig:ell_single}
+\end{marginfigure}
+\begin{marginfigure}
+	\includegraphics[height=\linewidth]{ellipses_general}
+	\caption{Elliptic envelope plot for general models.}
+	\label{fig:ell_general}
+\end{marginfigure}
 Motivated by related work, we conducted a study where participants performed touches on smartphones during which we sampled the internal sensors. 
 A combination of a neural network and accelerometer and gyroscope values from the internal sensors allowed us to predict future touches on the smartphone. 
 We have focused on showing the possibility of the applicability of our approach as using the IMU is feasible for ordinary usage.
@@ -44,10 +26,39 @@ However, our results could be applied to highlighting larger elements or preload
 
 \subsection*{Limitations}
 In this paper we focused on one specific use task where users touched randomized targets on smartphones while sitting on a chair without armrests. 
-The sensor samples generated during our study are specific for this use case and thereby do not cover ordinary smartphone usage and implied phone movement when for example walking or operating the phone in a train.
+The sensor samples generated during our study are specific for this use case and thereby do not cover ordinary smartphone usage and implied phone movement when e.g. walking, lying in bed, or operating the phone in a train.
 An In-The-Wild study is open for future work, where participants are handed out phones which relentlessly record touches and sample the IMU.
 The variety of touches during different activities would lead to a more generalizable dataset for touch prediction.
 The participants tried to complete the tasks as fast as possible because the study was exhausting for both the hand and the eyes.
 This led to a high amount of sensor data from fast touches and a low percentage of slow touches.
 Future work could explore the variety of different touches ranging from slow to fast touches  while sampling the IMU.
-
+\begin{margintable}
+	\vspace{-7cm}
+	\centering
+	\begin{tabularx}{1\marginparwidth}{XXd{4.2}d{4.2}d{4.2}}
+		
+		\toprule
+		
+		&\textbf{Model}&\multicolumn{1}{c}{\textbf{0ms}}&\multicolumn{1}{c}{\textbf{33ms}}&\multicolumn{1}{c}{\textbf{66ms}} \\
+		\midrule
+		
+		\multirow{2}{*}{\textsc{S3}}   &\multirow{1}{*}{\textbf{S}}  &\cellcolor{green!25}766.92 & \cellcolor{green!25}864.35&1049.42       \\
+		\cmidrule{2-5}
+		&\multirow{1}{*}{\textbf{G}} &778.93&869.17&\cellcolor{green!25}1002.76     \\
+		\midrule		
+		\multirow{2}{*}{\textsc{S4}}   &\multirow{1}{*}{\textbf{S}}  &\cellcolor{green!25}1354.96&1588.03&1733.1       \\
+		\cmidrule{2-5}
+		&\multirow{1}{*}{\textbf{G}} &1376.14&\cellcolor{green!25}1482.92&\cellcolor{green!25}1656.89     \\
+		\midrule
+		\multirow{2}{*}{\textsc{N5X}}  &\multirow{1}{*}{\textbf{S}}  &\cellcolor{green!25}1413.76&1612.83&1972.12       \\
+		\cmidrule{2-5}
+		&\multirow{1}{*}{\textbf{G}} &1477.92&\cellcolor{green!25}1573.48&\cellcolor{green!25}1871.57     \\
+		\midrule
+		\multirow{2}{*}{\textsc{N6}}   &\multirow{1}{*}{\textbf{S}}  &1661.86&1814.29&2176.2       \\
+		\cmidrule{2-5}
+		&\multirow{1}{*}{\textbf{G}}&\cellcolor{green!25}1462.5&\cellcolor{green!25}1479.93&\cellcolor{green!25}1826.55\\							         		
+		\bottomrule    
+	\end{tabularx}%
+	\caption[Ellipse areas]{\small Ellipse areas ($ mm^{2} $) from single models seen in \cref{fig:ell_single} and from general models seen in \cref{fig:ell_general}.}
+	\label{tab:areas}
+\end{margintable}

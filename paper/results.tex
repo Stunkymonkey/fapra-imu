@@ -65,21 +65,21 @@ Light green highlighted values in phone columns represent the regressor that per
 Green highlighted values in the first column represent the overall best regressor for each prediction time.
 
 \subsection{Neural Network}
-
+\begin{marginfigure}
+	\vspace{0.1cm}	
+	\includegraphics[height=\linewidth]{pred_N5X}
+	\caption{Predictions and true points for the single model of the N5X. Units are depicted in mm.\newline}
+	\label{fig:pred_N5X}
+\end{marginfigure}
+\begin{marginfigure}
+	\includegraphics[height=\linewidth]{origin_N5X}
+	\caption{Origin heatmap plot for the single model of the N5X after each true point with the corresponding prediction is shifted by the distance from origin to actual point.}
+	\label{fig:origin_N5X}
+\end{marginfigure}
 We implemented our neural network using \textit{Keras} 2.2.4 which is based on the TensorFlow backend.
 We trained two model types, one which we call \textit{single} and one which we call \textit{general} model.
 Single models were trained on sensor and touch data of single phones; general models were trained on sensor data and normalized touch data of all phones.
-\begin{marginfigure}	
-	\centering
-	\includegraphics[height=\linewidth]{ellipses_single}
-	\caption{Elliptic envelope plot for single models.\newline}
-	\label{fig:ell_single}
-\end{marginfigure}
-\begin{marginfigure}
-	\includegraphics[height=\linewidth]{ellipses_general}
-	\caption{Elliptic envelope plot for general models.}
-	\label{fig:ell_general}
-\end{marginfigure}
+We trained each model for approximately 2000 epochs.
 The network architecture differs for single and general models.
 Due to place restrictions and the fact that general models performed better than the single models, we only report about our general model architecture.
 The final architecture is shown in \cref{fig:model_architecture}.
@@ -100,18 +100,18 @@ The output layer consists of 2 values \textit{(x,y)} coordinates that represent 
 \subsection{Predictions}
 \begin{figure}[t]
 	\includegraphics[width=\textwidth]{boxplot_general_smartphones}
-	\caption{Boxplots for the predictions of the general model. The groups are based on the phones with each prediction time as one box.}
+	\caption{Boxplots for the prediction errors of the general model. The groups are based on the phones with each prediction time as one box.}
 	\label{fig:boxplots_general}
 \end{figure}
-We trained our models for approximately 2000 epochs.
 For each point prediction we converted its unit from pixels to mm based on the pixel sizes of the mobile phones.
 The average euclidean distances for both the single and the general model can be seen in \cref{tab:results}.
 \cref{fig:boxplots_general} visualizes the errors of the general model grouped by phones for each prediction time.
-\todo{Maybe noch ein origin plot wenn platz}
+\cref{fig:pred_N5X} shows 100 random taken predictions for the N5X single model.
 For \cref{fig:ell_single} and \cref{fig:ell_general} we have shifted each prediction with its corresponding true point by the distance from the true point to the origin, thus resulting in a heatmap around the origin representing the scattering of the prediction points.
+Such an origin heatmap can be seen in \cref{fig:origin_N5X}.
 For each phone and each prediction time we have fitted an elliptic envelope with a contamination parameter of .0261 inside the heatmap.
-Elliptic envelopes are used for outlier filtering; the higher to contamination the more aggressive the ellipse is fitted against outliers.
-For each ellipse of single and general models we calculated the area in $ mm^{2}$.
+Elliptic envelopes are used for outlier filtering; the higher to contamination the more outliers are in the data set.
+For each ellipse of single and general models, we have approximated the area in $mm^{2}$ by calculating the percentage of points of a rectangle falling within the ellipse. 
 The areas are listed in \cref{tab:areas}.
 Light green highlighted cells depict which model resulted in a smaller ellipse area for its predictions.
 %\footnote{\url{https://05.jupyter.interactionlab.io/user/beneste/tree/fapra-imu}}

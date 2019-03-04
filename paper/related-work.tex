@@ -1,22 +1,22 @@
 \section{Related Work}
 \label{sec:relw}
 \begin{margintable}
-	\vspace{-0.9cm}
+	\vspace{-1.3cm}
 	\centering
-	\begin{tabularx}{1.03\marginparwidth}{Xd{2.1}d{2.1}d{1.1}}
+	\begin{tabularx}{1.03\marginparwidth}{Xd{2.1}d{2.1}d{3.1}}
 		\toprule
 		\multicolumn{1}{l}{\multirow{3}{*}{\shortstack[c]{\textbf{Device}}}}&
 		\multicolumn{1}{c}{\multirow{3}{*}{\shortstack[c]{\textbf{Release}}}}&    
-		\multicolumn{1}{c}{\multirow{3}{*}{\shortstack[c]{\textbf{Weight}\\ \textbf{(g)}}}} &
-		\multicolumn{1}{c}{\multirow{3}{*}{\shortstack[c]{\textbf{Screen}\\ \textbf{Diagonal}\\ \textbf{(in)}}}} \\
+		\multicolumn{1}{c}{\multirow{3}{*}{\shortstack[c]{\textbf{Weight}\\\textbf{(g)}}}} &
+		\multicolumn{1}{c}{\multirow{3}{*}{\shortstack[c]{\textbf{Screen}\\ \textbf{Diagonal}\\ \textbf{(mm)}}}} \\
 		\\
 		\\
 		\midrule
 		%                year   weight diag  
-		S3 Mini  		& 2012 & 113 &  4. \\
-		S4 				& 2013 & 130 &5.   \\
-		Nexus 5X 		& 2015 & 136 &5.2  \\
-		Nexus 6 		& 2014 & 184 & 6.  \\ 
+		S3 Mini  		& 2012 & 113  & 101.6\\
+		S4 				& 2013 & 130  & 127.\\
+		Nexus 5X 		& 2015 & 136  & 132\\
+		Nexus 6 		& 2014 & 184  & 152.4\\ 
 		
 		
 		\bottomrule
@@ -40,7 +40,7 @@
 	\label{tab:devices}
 \end{margintable}
 \begin{margintable}
-	%	\vspace{-5cm}
+	\vspace{-0.2cm}
 	\centering
 	\begin{tabularx}{1\marginparwidth}{Xd{2.1}d{2.1}d{1.1}d{1.1}}
 		\toprule
@@ -52,10 +52,10 @@
 		\\
 		\midrule
 		%                	 Touch  33ms  66ms  
-		\cellcolor{green}RF & \cellcolor{green!25}28.11 & 34.76                     &\cellcolor{green!25}36.38 & \cellcolor{green!25}41.4 \\ \cmidrule{1-5}
-		DT & 28.81 					   & 35.58                     &37.03                     & 42.56 \\ \cmidrule{1-5}
-		KNN& 28.67 					   & \cellcolor{green!25}34.61 &36.36                     & 42.91 \\ \cmidrule{1-5}
-		GP & 53.35 					   & 66.83                     &69.53                     & 79.06 \\ \midrule
+		\cellcolor{green}RF & \cellcolor{green!25}28.11    & 34.76                     &\cellcolor{green!25}36.38 & \cellcolor{green!25}41.4 \\ \cmidrule{1-5}
+		DT                  & 28.81 					   & 35.58                     &37.03                     & 42.56 \\ \cmidrule{1-5}
+		KNN                 & 28.67 					   & \cellcolor{green!25}34.61 &36.36                     & 42.91 \\ \cmidrule{1-5}
+		GP                  & 53.35 					   & 66.83                     &69.53                     & 79.06 \\ \midrule
 		
 		%		\multicolumn{1}{l}{\multirow{2}{*}{\shortstack[c]{\textbf{Regressor}}}}&
 		&\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{S3M} \\ \textbf{33ms}}}}&    
@@ -67,9 +67,9 @@
 		%                	 Touch  33ms  66ms  
 		%                	 Touch  33ms  66ms  
 		\cellcolor{green}RF & \cellcolor{green!25}27.91 & \cellcolor{green!25}34.29  & 36.05                      & \cellcolor{green!25}40.45 \\ \cmidrule{1-5}
-		DT & 28.39                     & 35.1                       & \cellcolor{green!25}35.03  & 41.52 \\ \cmidrule{1-5}
-		KNN& 28.41                     & 34.31                      & 35.92                      & 42.13 \\ \cmidrule{1-5}
-		GP & 52.89                     & 66.82                      & 69.52                      & 79.05 \\ 
+		DT                  & 28.39                     & 35.1                       & \cellcolor{green!25}35.03  & 41.52 \\ \cmidrule{1-5}
+		KNN                 & 28.41                     & 34.31                      & 35.92                      & 42.13 \\ \cmidrule{1-5}
+		GP                  & 52.89                     & 66.82                      & 69.52                      & 79.05 \\ 
 		\midrule
 		%		\multicolumn{1}{l}{\multirow{2}{*}{\shortstack[c]{\textbf{Regressor}}}}&
 		&\multicolumn{1}{c}{\multirow{2}{*}{\shortstack[c]{\textbf{S3M}  \\ \textbf{66ms}}}}&    
@@ -79,10 +79,10 @@
 		\\
 		\midrule
 		%                	 Touch  33ms  66ms  
-		RF &\cellcolor{green!25}27.54  & 33.58                       & 35.24                       & 40.18 \\ \cmidrule{1-5}
+		RF                  &\cellcolor{green!25}27.54  & 33.58                       & 35.24                       & 40.18 \\ \cmidrule{1-5}
 		\cellcolor{green}DT &27.9                       & \cellcolor{green!25}32.74   & \cellcolor{green!25}34.67   & \cellcolor{green!25}39.54 \\ \cmidrule{1-5}
-		KNN&28.1                       & 33.99                       & 35.93                       & 41.62 \\ \cmidrule{1-5}
-		GP &44.65                      & 64.83                       & 67.88                       & 76.18 \\ 
+		KNN                 &28.1                       & 33.99                       & 35.93                       & 41.62 \\ \cmidrule{1-5}
+		GP                  &44.65                      & 64.83                       & 67.88                       & 76.18 \\ 
 		\bottomrule
 	\end{tabularx}%
 	\caption[Baseline data]{\small Average euclidean distances (mm) for baseline regressors.}

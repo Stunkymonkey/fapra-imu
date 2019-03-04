@@ -1,12 +1,4 @@
 \section{Data Collection Study}
-\begin{marginfigure}
-	\vspace{-0.5cm}
-	\includegraphics[width=1\marginparwidth]{imu-cnn-korrekt}
-	\caption[Model architecture]{Model architecture of the neural network of general models for predicting touches based on phones' IMU.}
-	\label{fig:model_architecture}
-\end{marginfigure}
-
-
 We conducted a data collection study to gather IMU data while performing touches on a smartphone.
 Our collected data set consists of 6 smartphone sensors that were sampled while participants performed successive touches on the smartphones front side. 
 For our data collection study we used a repeated-measures design with one independent variable: \textsc{phone}, which was counterbalanced using Latin Balanced squares. 
@@ -23,7 +15,12 @@ Using phones of these sizes we were able to cover the sizes of everyday smartpho
 
 \subsection{Tasks}
 \label{sec:tasks}
-
+\begin{marginfigure}
+	\vspace{-3.5cm}
+	\includegraphics[width=1\marginparwidth]{imu-cnn-korrekt}
+	\caption[Model architecture]{Model architecture of the neural network of general models for predicting touches based on phones' IMU.}
+	\label{fig:model_architecture}
+\end{marginfigure}
 For our data collection study participants had to touch points displayed as crosses in a 16 $ \times $ 9 grid on the touchscreen (see \cref{fig:touchtask}). 
 We decided to create the crosses the same as the aspect ratios of the mobile phones.
 To achieve a high variance, we randomized the positions of the crosses within all the cells.

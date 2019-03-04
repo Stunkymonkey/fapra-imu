@@ -89,13 +89,19 @@
 \ccsdesc[500]{Human-centered computing~User studies}
 \ccsdesc[500]{Human-centered computing~Ubiquitous and mobile devices}
 \begin{abstract}
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar
+Touch on smartphones is a momentary snapshot of the 2D position of the user's finger on the screen. 
+However, the genesis of touches comes from events on the screen itself and can be traced until the moment of touch throughout the movement and rotation of the wrist and the fingers.
+In this paper, we present an approach for making use of the genesis of touches and the associated movements in order to predict the actual touch with the help of phones built-in sensors.
+The benefits offered by this approach can be preloading content based on future touches or enhance information gathering by highlighting to be touched objects.
+Related work in this field of interaction enhancement relied on additional equipment like capacitive sensors, self-capacitance touchscreens, or user-mounted sensors.
+For this purpose, however, neither the availability nor the applicability is given for ordinary smartphone use.
+We conducted a study with 20 participants to gather internal phone sensor data for a number of touches on four different smartphones.
+We built a neural network that was able to predict touches up to 66ms into the future with an average accuracy of $ 18.05mm $. 
 %See: \url{https://users.ece.cmu.edu/~koopman/essays/abstract.html}
-\todo{noch ein bis zwei doofe keywords finden}
 \end{abstract}
 
 
-\keywords{Touch prediction; smartphone; sensors; regression; machine learning; .}
+\keywords{Touch prediction; smartphone; sensors; regression; machine learning; deep neural networks.}
 
 \maketitle
 
@@ -158,7 +164,6 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula 
 %      \bottomrule
 %    \end{tabular}
 %\end{margintable}
-\newpage
 \bibliography{bibliography}
 \bibliographystyle{ACM-Reference-Format}
 

@@ -1,6 +1,6 @@
 \section{Results}
 \begin{margintable}
-	\vspace{-4.3cm}
+	\vspace{-3.8cm}
 	\centering
 	\begin{tabularx}{1\marginparwidth}{XXd{2.2}d{2.2}d{2.2}}
 		
@@ -45,20 +45,20 @@
 We recorded a total of 1079 minutes of sensor data from the \textit{touch} and \textit{Fitt's Law task} task.
 The duration for touches was on average 664.56ms (SD = 300.69ms).
 The fastest touch was performed within 181ms.
-%Since we are only interested in sensor changes during the process of reaching for a target and touching it and the purpose of the \textit{Fitt's Law task} was only for reseting the participants grip to the lower half of the phone our first step in our preprocessing pipeline was \texttt{cutting} out the sensor fragments of the \textit{Fitt's Law task}.
-During the study we sampled the linear accelerometer, gyroscope, magnetometer, gravitational sensor, and the orientation sensor.
-Due to the high sampling rate of the sensors we first removed occurring duplicates by keeping the last sensor value and timestamp.
+%Since we are only interested in sensor changes during the process of reaching for a target and touching it and the purpose of the \textit{Fitt's Law task} was only for resetting the participants grip to the lower half of the phone our first step in our preprocessing pipeline was \texttt{cutting} out the sensor fragments of the \textit{Fitt's Law task}.
+During the study, we sampled the linear accelerometer, gyroscope, magnetometer, gravitational sensor, and the orientation sensor.
+Due to the high sampling rate of the sensors, we first removed occurring duplicates by keeping the last sensor value and timestamp.
 We then up-sampled the sensors to 333.33 Hz, resulting in 1 sample given every 3ms. 
 Finally, we saved 100 samples before each touch resulting in a total of 3.456.000 samples.
 After testing we only kept the accelerometer and the gyroscope, as using all sensors led to overfitting.
-
 Up-sampling the sensors to 1 sample every 3ms resulted in a discontinuous function for each sensor axis. 
 We have therefore tried applying several smoothing procedures, including a Butterworth lowpass-filter and a moving average filter.
 Both approaches, however, did not lead to an increase in accuracy, so we kept the unsmoothed data of the sensors.
+We have split the data set randomly into 14 training and 6 testing participants.
 
 \subsection{Baseline}
-We explored basic regressors from scikit-learn \footnote{\url{https://scikit-learn.org/stable/supervised\_learning.html\#supervised-learning}} as a baseline to test whether using novel machine learning techniques is sufficient for touch prediction with IMU.
-The used regressors are abbreviated as follows: RandomForestRegressor (RF), Decision Tree Regressor (DT), K Nearest Neighbors Regressor (KNN), and Gaussian Processes Regressor (GP).
+We explored basic regressors from scikit-learn \footnote{\url{https://scikit-learn.org/stable/supervised\_learning.html\#supervised-learning}} as a baseline to test whether using novel machine learning techniques achieve better touch predictions with IMU than standard machine learning algorithms.
+The used regressors are abbreviated as follows: RandomForestRegressor (RF), Decision Tree Regressor (DT), \textit{k}-Nearest Neighbors Regressor (kNN), and Gaussian Processes Regressor (GP).
 We performed a grid search for the different regressors to find the best hyperparameters for each regressor.
 The results for all phones with different time configurations of all regressors can be seen in \cref{tab:baseline}.
 Light green highlighted values in phone columns represent the regressor that performed the best for this configuration of phone and prediction time.
@@ -66,7 +66,7 @@ Green highlighted values in the first column represent the overall best regresso
 
 \subsection{Neural Network}
 \begin{marginfigure}
-	\vspace{0.1cm}	
+	\vspace{-0.2cm}    
 	\includegraphics[height=\linewidth]{pred_N5X}
 	\caption{Predictions and true points for the single model of the N5X. Units are depicted in mm.\newline}
 	\label{fig:pred_N5X}
@@ -87,8 +87,8 @@ The input consists of values from the 3 accelerometer and 3 gyroscope sensor axi
 The input length varied based on the prediction time.
 As mentioned above, we saved 100 samples before each touch.
 We varied between 3 prediction times: \textit{0ms}, \textit{33ms}, and \textit{66ms}.
-If we wanted to predict 0ms in the future, i.e. predict the point of contact directly at touch, we provided the neural network with 100 sensor samples for each touch.
-If the prediction was 33ms in the future we only fed in 89 sensor samples, and for 66ms predicting into the future we only used 78 samples.
+If we wanted to predict 0ms in the future, i.e. predict the point of contact directly at a touch, we provided the neural network with 100 sensor samples for each touch.
+If the prediction was 33ms in the future we only fed in 89 sensor samples, and for 66ms predicting into the future, we only used 78 samples.
 The bold written 100 in \cref{fig:model_architecture} therefore varied between 100, 89, and 78 for the different prediction times.
 The input then goes through one Conv2D layer on which a L2 regularizer with a factor of .001 is applied.
 The same L2 regularizer is applied to the first dense layer.
@@ -104,14 +104,15 @@ The output layer consists of 2 values \textit{(x,y)} coordinates that represent 
 	\label{fig:boxplots_general}
 \end{figure}
 For each point prediction we converted its unit from pixels to mm based on the pixel sizes of the mobile phones.
-The average euclidean distances for both the single and the general model can be seen in \cref{tab:results}.
+The average Euclidean distances between actual points and predictions for both the single and the general model can be seen in \cref{tab:results}.
 \cref{fig:boxplots_general} visualizes the errors of the general model grouped by phones for each prediction time.
 \cref{fig:pred_N5X} shows 100 random taken predictions for the N5X single model.
 For \cref{fig:ell_single} and \cref{fig:ell_general} we have shifted each prediction with its corresponding true point by the distance from the true point to the origin, thus resulting in a heatmap around the origin representing the scattering of the prediction points.
 Such an origin heatmap can be seen in \cref{fig:origin_N5X}.
-For each phone and each prediction time we have fitted an elliptic envelope with a contamination parameter of .0261 inside the heatmap.
-Elliptic envelopes are used for outlier filtering; the higher to contamination the more outliers are in the data set.
-For each ellipse of single and general models, we have approximated the area in $mm^{2}$ by calculating the percentage of points of a rectangle falling within the ellipse. 
+For each phone and each prediction time, we have fitted an elliptic envelope with a contamination parameter of .0261 inside the heatmap.
+This value can be explained that .261\% of all predictions have a higher RMSE than the mean RMSE + .5 $*$ RMSE std.
+%Elliptic envelopes are used for outlier filtering; the higher to contamination the more outliers are in the data set.
+For each ellipse of single and general models, we have approximated the area in $mm^{2}$ by calculating the percentage of points of a rectangle with known size falling within the ellipse. 
 The areas are listed in \cref{tab:areas}.
 Light green highlighted cells depict which model resulted in a smaller ellipse area for its predictions.
 %\footnote{\url{https://05.jupyter.interactionlab.io/user/beneste/tree/fapra-imu}}

@@ -1,7 +1,7 @@
 \section{Related Work}
 \label{sec:relw}
 \begin{margintable}
-	\vspace{-1.3cm}
+	\vspace{-1.0cm}
 	\centering
 	\begin{tabularx}{1.03\marginparwidth}{Xd{2.1}d{2.1}d{3.1}}
 		\toprule
@@ -54,7 +54,7 @@
 		%                	 Touch  33ms  66ms  
 		\cellcolor{green}RF & \cellcolor{green!25}28.11    & 34.76                     &\cellcolor{green!25}36.38 & \cellcolor{green!25}41.4 \\ \cmidrule{1-5}
 		DT                  & 28.81 					   & 35.58                     &37.03                     & 42.56 \\ \cmidrule{1-5}
-		KNN                 & 28.67 					   & \cellcolor{green!25}34.61 &36.36                     & 42.91 \\ \cmidrule{1-5}
+		kNN                 & 28.67 					   & \cellcolor{green!25}34.61 &36.36                     & 42.91 \\ \cmidrule{1-5}
 		GP                  & 53.35 					   & 66.83                     &69.53                     & 79.06 \\ \midrule
 		
 		%		\multicolumn{1}{l}{\multirow{2}{*}{\shortstack[c]{\textbf{Regressor}}}}&
@@ -68,7 +68,7 @@
 		%                	 Touch  33ms  66ms  
 		\cellcolor{green}RF & \cellcolor{green!25}27.91 & \cellcolor{green!25}34.29  & 36.05                      & \cellcolor{green!25}40.45 \\ \cmidrule{1-5}
 		DT                  & 28.39                     & 35.1                       & \cellcolor{green!25}35.03  & 41.52 \\ \cmidrule{1-5}
-		KNN                 & 28.41                     & 34.31                      & 35.92                      & 42.13 \\ \cmidrule{1-5}
+		kNN                 & 28.41                     & 34.31                      & 35.92                      & 42.13 \\ \cmidrule{1-5}
 		GP                  & 52.89                     & 66.82                      & 69.52                      & 79.05 \\ 
 		\midrule
 		%		\multicolumn{1}{l}{\multirow{2}{*}{\shortstack[c]{\textbf{Regressor}}}}&
@@ -81,7 +81,7 @@
 		%                	 Touch  33ms  66ms  
 		RF                  &\cellcolor{green!25}27.54  & 33.58                       & 35.24                       & 40.18 \\ \cmidrule{1-5}
 		\cellcolor{green}DT &27.9                       & \cellcolor{green!25}32.74   & \cellcolor{green!25}34.67   & \cellcolor{green!25}39.54 \\ \cmidrule{1-5}
-		KNN                 &28.1                       & 33.99                       & 35.93                       & 41.62 \\ \cmidrule{1-5}
+		kNN                 &28.1                       & 33.99                       & 35.93                       & 41.62 \\ \cmidrule{1-5}
 		GP                  &44.65                      & 64.83                       & 67.88                       & 76.18 \\ 
 		\bottomrule
 	\end{tabularx}%
@@ -96,17 +96,17 @@ An addition to the interaction enhancement through e.g. BoD elements could be th
 \citeauthor{Goel2012a} \cite{Goel2012a} presented \textit{GripSense}, a system that can imply pressure and infers hand postures on phones based on inertial sensor measurements by the gyroscope with an accuracy of 84.3\%.
 To reduce the noticeable latency of continuous motion on touchscreens, \citeauthor{Le2017:Predic} \cite{Le2017:Predic} introduced \textit{PredicTouch}, a system consisting of three external IMUs attached to the wrist, the finger, and to a stylus in order to predict where users will continue their motion on touchscreens in the near future.
 Using a combination of IMU and a multi-layer feedforward neural network for regression, which was trained on touch coordinates with preceding data from the IMU, they were able to accurately predict touches 33ms and 66ms into the future.
-Additionally, user's throughput for finger input was increased by 15\% and 17\% for stylus input.
+Additionally, the user's throughput for finger input was increased by 15\% and 17\% for stylus input.
 Support was found for \citeauthor{Hinckley2016} \cite{Hinckley2016} approach of using self-capacitance touchscreen displays as a means for mobile interaction.
 Self-capacitive touchscreens capture fingers and their distance from the screen before touching it.  
 Their contribution covers the applicability of multi-touch hover and grip, which is enabled by self-capacitance touchscreens, in common interaction scenarios.
 Motivated by overcoming the lack of input modalities, \citeauthor{MohdNoor2016} \cite{MohdNoor2016} presented \textit{28 Frames Later}, a system that predicts future touch positions on smartphones.
-Based on grip data they gathered from a total of 24 capacitive sensors built inside the BoD and on the laterals while performing touches on the touchscreen they built a machine learning model that was able to predict touch positions $ 200ms $ before the actual touch with an offset of $ 18mm $ to the actual touch position.
-However their system required the 24 built on sensors which is not feasible for ordinary usage.
+Based on grip data they gathered from a total of 24 capacitive sensors built inside the BoD and on the laterals while performing touches on the touchscreen they built a basic machine learning model that was able to predict touch positions $ 200ms $ before the actual touch with an average offset of $ 18mm $ to the actual touch position.
+However, their system required the 24 built on sensors which are not feasible for ordinary usage.
 
 Some of the presented work require additional features for their approach to work.
 This includes, for example, having additional sensors mounted to the telephone or having special touch-sensitive displays. 
 The normal use of today's smartphones does not support this kind of interaction elements.
 However, the use of internal sensors is a promising solution for this limitation as smartphones nowadays are equipped with them as standard.
 Confirmation of this can be found in the approaches mentioned above.
-We present a combination of a neural network in combination with the internal sensors to predict where one will touch in the near future. 
+We present a combination of a neural network and the internal sensors to predict where touches will happen in the near future. 
